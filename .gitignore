@@ -1,0 +1,3 @@
+.env
+laravel/public/*
+!laravel/public/.gitkeep
