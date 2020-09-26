@@ -6,6 +6,8 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
+    interface AppHeader {
+    }
     interface AppHome {
     }
     interface AppProfile {
@@ -13,8 +15,18 @@ export namespace Components {
     }
     interface AppRoot {
     }
+    interface FormLogin {
+    }
+    interface PageLogin {
+    }
 }
 declare global {
+    interface HTMLAppHeaderElement extends Components.AppHeader, HTMLStencilElement {
+    }
+    var HTMLAppHeaderElement: {
+        prototype: HTMLAppHeaderElement;
+        new (): HTMLAppHeaderElement;
+    };
     interface HTMLAppHomeElement extends Components.AppHome, HTMLStencilElement {
     }
     var HTMLAppHomeElement: {
@@ -33,13 +45,30 @@ declare global {
         prototype: HTMLAppRootElement;
         new (): HTMLAppRootElement;
     };
+    interface HTMLFormLoginElement extends Components.FormLogin, HTMLStencilElement {
+    }
+    var HTMLFormLoginElement: {
+        prototype: HTMLFormLoginElement;
+        new (): HTMLFormLoginElement;
+    };
+    interface HTMLPageLoginElement extends Components.PageLogin, HTMLStencilElement {
+    }
+    var HTMLPageLoginElement: {
+        prototype: HTMLPageLoginElement;
+        new (): HTMLPageLoginElement;
+    };
     interface HTMLElementTagNameMap {
+        "app-header": HTMLAppHeaderElement;
         "app-home": HTMLAppHomeElement;
         "app-profile": HTMLAppProfileElement;
         "app-root": HTMLAppRootElement;
+        "form-login": HTMLFormLoginElement;
+        "page-login": HTMLPageLoginElement;
     }
 }
 declare namespace LocalJSX {
+    interface AppHeader {
+    }
     interface AppHome {
     }
     interface AppProfile {
@@ -47,19 +76,29 @@ declare namespace LocalJSX {
     }
     interface AppRoot {
     }
+    interface FormLogin {
+    }
+    interface PageLogin {
+    }
     interface IntrinsicElements {
+        "app-header": AppHeader;
         "app-home": AppHome;
         "app-profile": AppProfile;
         "app-root": AppRoot;
+        "form-login": FormLogin;
+        "page-login": PageLogin;
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "app-header": LocalJSX.AppHeader & JSXBase.HTMLAttributes<HTMLAppHeaderElement>;
             "app-home": LocalJSX.AppHome & JSXBase.HTMLAttributes<HTMLAppHomeElement>;
             "app-profile": LocalJSX.AppProfile & JSXBase.HTMLAttributes<HTMLAppProfileElement>;
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
+            "form-login": LocalJSX.FormLogin & JSXBase.HTMLAttributes<HTMLFormLoginElement>;
+            "page-login": LocalJSX.PageLogin & JSXBase.HTMLAttributes<HTMLPageLoginElement>;
         }
     }
 }

@@ -1,4 +1,5 @@
 import { Component, h } from '@stencil/core';
+import { RouterService } from '../../services/router.service';
 
 @Component({
   tag: 'app-home',
@@ -22,6 +23,8 @@ export class AppHome {
         <ion-button href="/profile/ionic" expand="block">
           Profile page
         </ion-button>
+
+        <ion-button href={ RouterService.getRoute('login') } expand="block">Log In</ion-button>
       </ion-content>,
     ];
   }

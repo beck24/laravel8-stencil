@@ -29,3 +29,11 @@
   More info about color theming using Ionic:
   https://ionicframework.com/docs/theming/color-generator
 */
+
+@import "~purecss/build/pure-min.css";
+@import "~purecss/build/forms-min.css";
+@import './styles/variables.scss';
+
+.section {
+  padding: 24px 12px;
+}

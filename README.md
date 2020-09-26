@@ -2,7 +2,7 @@
 
 Copy .env.example to .env and change any locally needed variables
 
-`docker-compose up -d`
+    docker-compose up -d
 
 # Laravel
 
@@ -12,9 +12,11 @@ Copy the `.env.example` to `.env` and change any required values
 
 Run the following
 
-`composer install`
-`php artisan key:generate`
-`php artisan cache:clear`
+    composer install
+    php artisan key:generate
+    php artisan cache:clear
+
+Note: Due to the front end being written by stenciljs, anything in the `/public` directory will be wiped anytime the front end is rebuilt.  If there are any assets that must be publicly available and persisted they should be placed in the `/public-laravel` directory, which gets copied into `/public` as part of the front end build process.  The storage link is persisted in the front end build process, so storage is unaffected.
 
 # Stencil
 
@@ -66,4 +68,4 @@ To access these variables anywhere else in the codebase import the config servic
 
 To build the front end for production, with optimized code and pre-rendering, there is a laravel artisan command that unlinks the public storage, triggers the build (which wipes out the public dir) then re-links the storage.
 
-`php artisan deploy:frontend`
+    php artisan deploy:frontend
