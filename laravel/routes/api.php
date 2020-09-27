@@ -23,3 +23,4 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
 // public routes
 Route::post('/login', 'Laravel\Fortify\Http\Controllers\AuthenticatedSessionController@store');
+Route::post('/logout', 'Laravel\Fortify\Http\Controllers\AuthenticatedSessionController@destroy');

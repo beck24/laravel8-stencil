@@ -18,6 +18,7 @@ class RouterServiceInstance {
       const routeMap = {
         home: '/',
         login: '/login',
+        'forgot-password': '/forgot-password'
       };
   
       let path = routeMap.hasOwnProperty(name) ? routeMap[name] : '/';

@@ -14,11 +14,13 @@ class APIServiceInstance {
      *   redirect?: string | false - override redirect handling
      * 
      */
-    get(params: any = {}) {
-        let headers = this.getheaders();
+    async get(params: any = {}) {
+        let headers;
 
         if (params.hasOwnProperty('headers')) {
             headers = params.headers;
+        } else {
+            headers = await this.getheaders();
         }
 
         // handle just simple objects for now until something deeper is required
@@ -62,11 +64,13 @@ class APIServiceInstance {
      *   redirect?: string | false - override redirect handling
      * 
      */
-    post(params: any = {}) {
-        let headers = this.getheaders();
+    async post(params: any = {}) {
+        let headers;
 
         if (params.hasOwnProperty('headers')) {
             headers = params.headers;
+        } else {
+            headers = await this.getheaders();
         }
 
         let fetchParams: RequestInit = {
@@ -96,7 +100,7 @@ class APIServiceInstance {
         return fetch(this.apiURL + params.endpoint, fetchParams);
     }
 
-    getheaders() {
+    async getheaders() {
         let headers = {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -105,6 +109,15 @@ class APIServiceInstance {
         let token = getCookie('XSRF-TOKEN');
 
         if (token) {
+            headers['X-XSRF-TOKEN'] = decodeURIComponent(token);
+        } else {
+            // if we have no xsrf token we should get one
+            // this should pretty much only happen on the first request of the session
+            console.log('getting initial xsrf token');
+            await this.get({endpoint: 'sanctum/csrf-cookie', headers: false});
+
+            token = getCookie('XSRF-TOKEN');
+
             headers['X-XSRF-TOKEN'] = decodeURIComponent(token);
         }
 

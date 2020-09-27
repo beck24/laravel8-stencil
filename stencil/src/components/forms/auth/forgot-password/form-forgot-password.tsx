@@ -2,15 +2,14 @@ import { Component, h, State } from '@stencil/core';
 import Isemail from 'isemail';
 import serialize from 'form-serialize';
 import { ToastService } from '../../../../services/toast.service';
-import { LoadingService } from '../../../../services/loading.service'
 import { APIService } from '../../../../services/api.service';
 import { RouterService } from '../../../../services/router.service';
 
 @Component({
-    tag: 'form-login',
-    styleUrl: 'form-login.scss'
+    tag: 'form-forgot-password',
+    styleUrl: 'form-forgot-password.scss'
 })
-export class FormLogin {
+export class FormForgotPassword {
     @State() errors: string[] = [];
 
     form: HTMLFormElement;
@@ -37,10 +36,6 @@ export class FormLogin {
           }
         }
     
-        if (!results.password) {
-          errors.push('Please enter your password');
-        }
-    
         this.errors = errors;
     
         return !errors.length;
@@ -55,51 +50,30 @@ export class FormLogin {
             return;
         }
 
-        await LoadingService.showLoading();
-
         let results = serialize(this.form, { hash: true, empty: true });
 
-        try {
-            let loginResponse = await APIService.post({ endpoint: 'login', data: results });
+        console.log(results);
 
-            if (loginResponse.ok) {
-                let userResponse = await APIService.get({ endpoint: 'user' });
+        // try {
+        //     let loginResponse = await APIService.post({ endpoint: 'login', data: results });
 
-                if (userResponse.ok) {
-                    console.log(await userResponse.json());
-                    ToastService.success('You have been logged in.');
-                }
-                else {
-                    ToastService.error('Could not load account info.');
-                }
-            }
-            else {
-                ToastService.error('Could not log in, please try again');
-            }
-        } catch (e) {
-            ToastService.error(e.message);
-        }
+        //     if (loginResponse.ok) {
+        //         let userResponse = await APIService.get({ endpoint: 'user' });
 
-        await LoadingService.hideLoading();
-    }
-
-    async logout() {
-        await LoadingService.showLoading();
-
-        try {
-            let response = await APIService.post({ endpoint: 'logout' });
-
-            if (response.ok) {
-                ToastService.success('You have been logged out');
-            }
-            else {
-                ToastService.error('There was an issue reaching the server, please try again');
-            }
-        } catch (e) {
-            ToastService.error(e.message);
-        }
-
-        await LoadingService.hideLoading();
+        //         if (userResponse.ok) {
+        //             console.log(await userResponse.json());
+        //             ToastService.success('You have been logged in.');
+        //         }
+        //         else {
+        //             ToastService.error('Could not load account info.');
+        //         }
+        //     }
+        //     else {
+        //         ToastService.error('Could not log in, please try again');
+        //     }
+        // } catch (e) {
+        //     ToastService.error(e.message);
+        // }
     }
 
     render() {
@@ -112,9 +86,9 @@ export class FormLogin {
                 >
                     <fieldset>
                         <div class="pure-control-group">
-                            <label htmlFor="login-form-email">Email</label>
+                            <label htmlFor="forgot-password-form-email">Email</label>
                             <input
-                                id="login-form-email"
+                                id="forgot-password-form-email"
                                 type="email"
                                 name="email"
                                 value=""
@@ -124,21 +98,8 @@ export class FormLogin {
                             />
                         </div>
 
-                        <div class="pure-control-group">
-                            <label htmlFor="login-form-password">Password</label>
-                            <input
-                                id="login-form-password"
-                                type="password"
-                                name="password"
-                                value=""
-                                class="block"
-                                placeholder="Password"
-                                onChange={() => this.validateDirtyInputs() }
-                            />
-                        </div>
-
                         <div style={{'padding-left': '11em'}}>
-                            <ion-router-link href={ RouterService.getRoute('forgot-password') }>Forgot Password?</ion-router-link>
+                            <ion-router-link href={ RouterService.getRoute('login') }>Login</ion-router-link>
                         </div>
 
                         <div class="pure-controls">
@@ -153,15 +114,11 @@ export class FormLogin {
                             }
 
                             <button type="submit" class="pure-button pure-button-primary">
-                                Log In
+                                Reset Password
                             </button>
                         </div>
                     </fieldset>
                 </form>
-
-                <button type="button" class="pure-button pure-button-primary" onClick={() => this.logout() }>
-                    Log Out
-                </button>
             </div>
         )
     }

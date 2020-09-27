@@ -15,7 +15,13 @@ export namespace Components {
     }
     interface AppRoot {
     }
+    interface FormForgotPassword {
+    }
     interface FormLogin {
+    }
+    interface Page404 {
+    }
+    interface PageForgotPassword {
     }
     interface PageLogin {
     }
@@ -45,11 +51,29 @@ declare global {
         prototype: HTMLAppRootElement;
         new (): HTMLAppRootElement;
     };
+    interface HTMLFormForgotPasswordElement extends Components.FormForgotPassword, HTMLStencilElement {
+    }
+    var HTMLFormForgotPasswordElement: {
+        prototype: HTMLFormForgotPasswordElement;
+        new (): HTMLFormForgotPasswordElement;
+    };
     interface HTMLFormLoginElement extends Components.FormLogin, HTMLStencilElement {
     }
     var HTMLFormLoginElement: {
         prototype: HTMLFormLoginElement;
         new (): HTMLFormLoginElement;
+    };
+    interface HTMLPage404Element extends Components.Page404, HTMLStencilElement {
+    }
+    var HTMLPage404Element: {
+        prototype: HTMLPage404Element;
+        new (): HTMLPage404Element;
+    };
+    interface HTMLPageForgotPasswordElement extends Components.PageForgotPassword, HTMLStencilElement {
+    }
+    var HTMLPageForgotPasswordElement: {
+        prototype: HTMLPageForgotPasswordElement;
+        new (): HTMLPageForgotPasswordElement;
     };
     interface HTMLPageLoginElement extends Components.PageLogin, HTMLStencilElement {
     }
@@ -62,7 +86,10 @@ declare global {
         "app-home": HTMLAppHomeElement;
         "app-profile": HTMLAppProfileElement;
         "app-root": HTMLAppRootElement;
+        "form-forgot-password": HTMLFormForgotPasswordElement;
         "form-login": HTMLFormLoginElement;
+        "page-404": HTMLPage404Element;
+        "page-forgot-password": HTMLPageForgotPasswordElement;
         "page-login": HTMLPageLoginElement;
     }
 }
@@ -76,7 +103,13 @@ declare namespace LocalJSX {
     }
     interface AppRoot {
     }
+    interface FormForgotPassword {
+    }
     interface FormLogin {
+    }
+    interface Page404 {
+    }
+    interface PageForgotPassword {
     }
     interface PageLogin {
     }
@@ -85,7 +118,10 @@ declare namespace LocalJSX {
         "app-home": AppHome;
         "app-profile": AppProfile;
         "app-root": AppRoot;
+        "form-forgot-password": FormForgotPassword;
         "form-login": FormLogin;
+        "page-404": Page404;
+        "page-forgot-password": PageForgotPassword;
         "page-login": PageLogin;
     }
 }
@@ -97,7 +133,10 @@ declare module "@stencil/core" {
             "app-home": LocalJSX.AppHome & JSXBase.HTMLAttributes<HTMLAppHomeElement>;
             "app-profile": LocalJSX.AppProfile & JSXBase.HTMLAttributes<HTMLAppProfileElement>;
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
+            "form-forgot-password": LocalJSX.FormForgotPassword & JSXBase.HTMLAttributes<HTMLFormForgotPasswordElement>;
             "form-login": LocalJSX.FormLogin & JSXBase.HTMLAttributes<HTMLFormLoginElement>;
+            "page-404": LocalJSX.Page404 & JSXBase.HTMLAttributes<HTMLPage404Element>;
+            "page-forgot-password": LocalJSX.PageForgotPassword & JSXBase.HTMLAttributes<HTMLPageForgotPasswordElement>;
             "page-login": LocalJSX.PageLogin & JSXBase.HTMLAttributes<HTMLPageLoginElement>;
         }
     }

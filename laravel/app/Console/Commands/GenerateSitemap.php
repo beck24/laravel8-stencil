@@ -43,6 +43,14 @@ class GenerateSitemap extends Command
                 'priority' => 0.8,
                 'change' => 'daily', // hourly, daily, weekly, monthly, yearly
             ],
+            '/login' => [
+                'priority' => 0.1,
+                'change' => 'monthly'
+            ],
+            '/forgot-password' => [
+                'priority' => 0.1,
+                'change' => 'monthly'
+            ]
         ];
 
         $sitemap = '<?xml version="1.0" encoding="UTF-8"?>';

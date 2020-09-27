@@ -13,7 +13,9 @@ export class AppRoot {
         <ion-router useHash={false} onIonRouteDidChange={e => { SEOService.update(e) }}>
           <ion-route url={ RouterService.getRoute('home') } component="app-home" />
           <ion-route url={ RouterService.getRoute('login') } component="page-login" />
+          <ion-route url={ RouterService.getRoute('forgot-password') } component="page-forgot-password" />
           <ion-route url="/profile/:name" component="app-profile" />
+          <ion-route url=":any" component="page-404" />
         </ion-router>
         <ion-nav />
       </ion-app>
