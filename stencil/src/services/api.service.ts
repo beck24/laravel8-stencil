@@ -93,9 +93,9 @@ class APIServiceInstance {
             }
 
             return object
-          }, {});
+        }, {});
 
-          fetchParams.method = 'POST'; // always for this post function
+        fetchParams.method = 'POST'; // always for this post function
 
         return fetch(this.apiURL + params.endpoint, fetchParams);
     }

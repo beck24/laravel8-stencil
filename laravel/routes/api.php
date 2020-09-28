@@ -24,3 +24,5 @@ Route::middleware(['auth:sanctum'])->group(function () {
 // public routes
 Route::post('/login', 'Laravel\Fortify\Http\Controllers\AuthenticatedSessionController@store');
 Route::post('/logout', 'Laravel\Fortify\Http\Controllers\AuthenticatedSessionController@destroy');
+Route::post('/forgot-password', 'Laravel\Fortify\Http\Controllers\PasswordResetLinkController@store');
+Route::post('/reset-password', 'Laravel\Fortify\Http\Controllers\NewPasswordController@store');

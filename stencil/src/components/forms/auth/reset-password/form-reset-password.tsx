@@ -1,4 +1,4 @@
-import { Component, h, State } from '@stencil/core';
+import { Component, h, Prop, State } from '@stencil/core';
 import Isemail from 'isemail';
 import serialize from 'form-serialize';
 import { ToastService } from '../../../../services/toast.service';
@@ -6,10 +6,11 @@ import { APIService } from '../../../../services/api.service';
 import { RouterService } from '../../../../services/router.service';
 
 @Component({
-    tag: 'form-forgot-password',
-    styleUrl: 'form-forgot-password.scss'
+    tag: 'form-reset-password',
+    styleUrl: 'form-reset-password.scss'
 })
-export class FormForgotPassword {
+export class FormResetPassword {
+    @Prop() token!: string;
     @State() errors: string[] = [];
 
     form: HTMLFormElement;
@@ -28,12 +29,21 @@ export class FormForgotPassword {
         let results = serialize(this.form, { hash: true, empty: true });
     
         if (!results.email) {
-          errors.push('Please enter an email address');
+          errors.push('Invalid email address - the url should contain a valid email address');
         }
         else {
           if (!Isemail.validate(results.email)) {
-            errors.push('Please enter a valid email address');
+            errors.push('Invalid email address - the url should contain a valid email address');
           }
+        }
+
+        if (!results.password) {
+            errors.push('Please enter a new password');
+        }
+        else {
+            if (results.password !== results.password_confirmation) {
+                errors.push('Password and confirmation should match');
+            }
         }
     
         this.errors = errors;
@@ -53,10 +63,11 @@ export class FormForgotPassword {
         let results = serialize(this.form, { hash: true, empty: true });
 
         try {
-            let response = await APIService.post({ endpoint: 'forgot-password', data: results });
+            let response = await APIService.post({ endpoint: 'reset-password', data: results });
 
             if (response.ok) {
-                ToastService.success('Please check your email and follow the link that was sent to reset your password');
+                RouterService.forward(RouterService.getRoute('login'));
+                ToastService.success('Password has been updated, please log in.');
             }
             else {
                 ToastService.error('There was an issue contacting the server');
@@ -76,20 +87,27 @@ export class FormForgotPassword {
                 >
                     <fieldset>
                         <div class="pure-control-group">
-                            <label htmlFor="forgot-password-form-email">Email</label>
+                            <label htmlFor="reset-password-form-password">Password</label>
                             <input
-                                id="forgot-password-form-email"
-                                type="email"
-                                name="email"
+                                id="reset-password-form-password"
+                                type="password"
+                                name="password"
                                 value=""
                                 class="block"
-                                placeholder="Email"
                                 onChange={() => this.validateDirtyInputs() }
                             />
                         </div>
 
-                        <div style={{'padding-left': '11em'}}>
-                            <ion-router-link href={ RouterService.getRoute('login') }>Login</ion-router-link>
+                        <div class="pure-control-group">
+                            <label htmlFor="reset-password-form-password2">Password Again</label>
+                            <input
+                                id="reset-password-form-password2"
+                                type="password"
+                                name="password_confirmation"
+                                value=""
+                                class="block"
+                                onChange={() => this.validateDirtyInputs() }
+                            />
                         </div>
 
                         <div class="pure-controls">
@@ -102,6 +120,9 @@ export class FormForgotPassword {
                                 </div>
                                 : null
                             }
+
+                            <input type="hidden" name="token" value={this.token} />
+                            <input type="hidden" name="email" value={ RouterService.getQueryParam('email') } />
 
                             <button type="submit" class="pure-button pure-button-primary">
                                 Reset Password

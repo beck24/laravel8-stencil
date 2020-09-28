@@ -32,7 +32,7 @@ class RouterServiceInstance {
       return path;
     }
   
-    serializeQuery = (params, prefix?) => {
+    serializeQuery(params, prefix?) {
       const query = Object.keys(params).map((key) => {
         const value  = params[key];
   
@@ -52,6 +52,18 @@ class RouterServiceInstance {
       });
   
       return [].concat.apply([], query).join('&');
+    }
+
+    getQueryParam(name) {
+      const urlParams = new URLSearchParams(window.location.search);
+
+      return urlParams.get(name);
+    }
+
+    getQueryParamArray(name) {
+      const urlParams = new URLSearchParams(window.location.search);
+
+      return urlParams.getAll(name);
     }
   }
   

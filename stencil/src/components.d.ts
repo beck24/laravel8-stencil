@@ -19,11 +19,17 @@ export namespace Components {
     }
     interface FormLogin {
     }
+    interface FormResetPassword {
+        "token": string;
+    }
     interface Page404 {
     }
     interface PageForgotPassword {
     }
     interface PageLogin {
+    }
+    interface PageResetPassword {
+        "token": string;
     }
 }
 declare global {
@@ -63,6 +69,12 @@ declare global {
         prototype: HTMLFormLoginElement;
         new (): HTMLFormLoginElement;
     };
+    interface HTMLFormResetPasswordElement extends Components.FormResetPassword, HTMLStencilElement {
+    }
+    var HTMLFormResetPasswordElement: {
+        prototype: HTMLFormResetPasswordElement;
+        new (): HTMLFormResetPasswordElement;
+    };
     interface HTMLPage404Element extends Components.Page404, HTMLStencilElement {
     }
     var HTMLPage404Element: {
@@ -81,6 +93,12 @@ declare global {
         prototype: HTMLPageLoginElement;
         new (): HTMLPageLoginElement;
     };
+    interface HTMLPageResetPasswordElement extends Components.PageResetPassword, HTMLStencilElement {
+    }
+    var HTMLPageResetPasswordElement: {
+        prototype: HTMLPageResetPasswordElement;
+        new (): HTMLPageResetPasswordElement;
+    };
     interface HTMLElementTagNameMap {
         "app-header": HTMLAppHeaderElement;
         "app-home": HTMLAppHomeElement;
@@ -88,9 +106,11 @@ declare global {
         "app-root": HTMLAppRootElement;
         "form-forgot-password": HTMLFormForgotPasswordElement;
         "form-login": HTMLFormLoginElement;
+        "form-reset-password": HTMLFormResetPasswordElement;
         "page-404": HTMLPage404Element;
         "page-forgot-password": HTMLPageForgotPasswordElement;
         "page-login": HTMLPageLoginElement;
+        "page-reset-password": HTMLPageResetPasswordElement;
     }
 }
 declare namespace LocalJSX {
@@ -107,11 +127,17 @@ declare namespace LocalJSX {
     }
     interface FormLogin {
     }
+    interface FormResetPassword {
+        "token": string;
+    }
     interface Page404 {
     }
     interface PageForgotPassword {
     }
     interface PageLogin {
+    }
+    interface PageResetPassword {
+        "token"?: string;
     }
     interface IntrinsicElements {
         "app-header": AppHeader;
@@ -120,9 +146,11 @@ declare namespace LocalJSX {
         "app-root": AppRoot;
         "form-forgot-password": FormForgotPassword;
         "form-login": FormLogin;
+        "form-reset-password": FormResetPassword;
         "page-404": Page404;
         "page-forgot-password": PageForgotPassword;
         "page-login": PageLogin;
+        "page-reset-password": PageResetPassword;
     }
 }
 export { LocalJSX as JSX };
@@ -135,9 +163,11 @@ declare module "@stencil/core" {
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
             "form-forgot-password": LocalJSX.FormForgotPassword & JSXBase.HTMLAttributes<HTMLFormForgotPasswordElement>;
             "form-login": LocalJSX.FormLogin & JSXBase.HTMLAttributes<HTMLFormLoginElement>;
+            "form-reset-password": LocalJSX.FormResetPassword & JSXBase.HTMLAttributes<HTMLFormResetPasswordElement>;
             "page-404": LocalJSX.Page404 & JSXBase.HTMLAttributes<HTMLPage404Element>;
             "page-forgot-password": LocalJSX.PageForgotPassword & JSXBase.HTMLAttributes<HTMLPageForgotPasswordElement>;
             "page-login": LocalJSX.PageLogin & JSXBase.HTMLAttributes<HTMLPageLoginElement>;
+            "page-reset-password": LocalJSX.PageResetPassword & JSXBase.HTMLAttributes<HTMLPageResetPasswordElement>;
         }
     }
 }
