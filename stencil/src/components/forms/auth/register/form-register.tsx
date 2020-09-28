@@ -7,10 +7,10 @@ import { RouterService } from '../../../../services/router.service';
 import { LoadingService } from '../../../../services/loading.service';
 
 @Component({
-    tag: 'form-forgot-password',
-    styleUrl: 'form-forgot-password.scss'
+    tag: 'form-register',
+    styleUrl: 'form-register.scss'
 })
-export class FormForgotPassword {
+export class FormRegister {
     @State() errors: string[] = [];
 
     form: HTMLFormElement;
@@ -27,14 +27,27 @@ export class FormForgotPassword {
     validate() {
         const errors = [];
         let results = serialize(this.form, { hash: true, empty: true });
+
+        if (!results.name) {
+            errors.push('Please enter your name');
+        }
     
         if (!results.email) {
-          errors.push('Please enter an email address');
+          errors.push('Invalid email address');
         }
         else {
           if (!Isemail.validate(results.email)) {
-            errors.push('Please enter a valid email address');
+            errors.push('Invalid email address');
           }
+        }
+
+        if (!results.password) {
+            errors.push('Please enter a password');
+        }
+        else {
+            if (results.password !== results.password_confirmation) {
+                errors.push('Password and confirmation should match');
+            }
         }
     
         this.errors = errors;
@@ -56,10 +69,10 @@ export class FormForgotPassword {
         let results = serialize(this.form, { hash: true, empty: true });
 
         try {
-            let response = await APIService.post({ endpoint: 'forgot-password', data: results });
+            let response = await APIService.post({ endpoint: 'register', data: results });
 
             if (response.ok) {
-                ToastService.success('Please check your email and follow the link that was sent to reset your password');
+                RouterService.forward(RouterService.getRoute('email-verification'));
             }
             else {
                 ToastService.error('There was an issue contacting the server');
@@ -80,16 +93,52 @@ export class FormForgotPassword {
                     ref={el => this.form = el as HTMLFormElement }
                 >
                     <fieldset>
-                        <h1>Forgot Password</h1>
+                        <h1>Register</h1>
+
                         <div class="pure-control-group">
-                            <label htmlFor="forgot-password-form-email">Email</label>
+                            <label htmlFor="register-form-name">Name</label>
                             <input
-                                id="forgot-password-form-email"
+                                id="register-form-name"
+                                type="text"
+                                name="name"
+                                value=""
+                                class="block"
+                                onChange={() => this.validateDirtyInputs() }
+                            />
+                        </div>
+
+                        <div class="pure-control-group">
+                            <label htmlFor="register-form-email">Email</label>
+                            <input
+                                id="register-form-email"
                                 type="email"
                                 name="email"
                                 value=""
                                 class="block"
-                                placeholder="Email"
+                                onChange={() => this.validateDirtyInputs() }
+                            />
+                        </div>
+
+                        <div class="pure-control-group">
+                            <label htmlFor="register-form-password">Password</label>
+                            <input
+                                id="register-form-password"
+                                type="password"
+                                name="password"
+                                value=""
+                                class="block"
+                                onChange={() => this.validateDirtyInputs() }
+                            />
+                        </div>
+
+                        <div class="pure-control-group">
+                            <label htmlFor="register-form-password2">Password Again</label>
+                            <input
+                                id="register-form-password2"
+                                type="password"
+                                name="password_confirmation"
+                                value=""
+                                class="block"
                                 onChange={() => this.validateDirtyInputs() }
                             />
                         </div>
@@ -106,12 +155,8 @@ export class FormForgotPassword {
                             }
 
                             <button type="submit" class="pure-button pure-button-primary">
-                                Reset Password
+                                Register
                             </button>
-                        </div>
-
-                        <div style={{'padding': '1em 0 0 11em'}}>
-                            <ion-router-link href={ RouterService.getRoute('login') }>Login</ion-router-link>
                         </div>
                     </fieldset>
                 </form>

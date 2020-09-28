@@ -15,9 +15,11 @@ export class AppRoot {
           <ion-route url="/profile/:name" component="app-profile" />
 
           {/* Auth routes */}
+          <ion-route url={ RouterService.getRoute('register') } component="page-register" />
           <ion-route url={ RouterService.getRoute('login') } component="page-login" />
           <ion-route url={ RouterService.getRoute('forgot-password') } component="page-forgot-password" />
           <ion-route url="/reset-password/:token" component="page-reset-password" />
+          <ion-route url="/email-verification" component="page-email-verification" />
 
           {/* Catch-all route */}
           <ion-route url=":any" component="page-404" />

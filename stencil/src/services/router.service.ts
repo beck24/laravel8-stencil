@@ -18,6 +18,7 @@ class RouterServiceInstance {
       const routeMap = {
         home: '/',
         login: '/login',
+        register: '/register',
         'forgot-password': '/forgot-password'
       };
   

@@ -66,7 +66,6 @@ export class FormLogin {
                 let userResponse = await APIService.get({ endpoint: 'user' });
 
                 if (userResponse.ok) {
-                    console.log(await userResponse.json());
                     ToastService.success('You have been logged in.');
                 }
                 else {
@@ -105,6 +104,7 @@ export class FormLogin {
     render() {
         return (
             <div>
+                <h1>Login</h1>
                 <form
                     class="pure-form pure-form-aligned"
                     onSubmit={e => this.handleSubmit(e)}
@@ -137,10 +137,6 @@ export class FormLogin {
                             />
                         </div>
 
-                        <div style={{'padding-left': '11em'}}>
-                            <ion-router-link href={ RouterService.getRoute('forgot-password') }>Forgot Password?</ion-router-link>
-                        </div>
-
                         <div class="pure-controls">
 
                             {
@@ -155,6 +151,10 @@ export class FormLogin {
                             <button type="submit" class="pure-button pure-button-primary">
                                 Log In
                             </button>
+                        </div>
+
+                        <div style={{'padding': '1em 0 0 11em'}}>
+                            <ion-router-link href={ RouterService.getRoute('forgot-password') }>Forgot Password?</ion-router-link>
                         </div>
                     </fieldset>
                 </form>

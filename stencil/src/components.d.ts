@@ -19,14 +19,20 @@ export namespace Components {
     }
     interface FormLogin {
     }
+    interface FormRegister {
+    }
     interface FormResetPassword {
         "token": string;
     }
     interface Page404 {
     }
+    interface PageEmailVerification {
+    }
     interface PageForgotPassword {
     }
     interface PageLogin {
+    }
+    interface PageRegister {
     }
     interface PageResetPassword {
         "token": string;
@@ -69,6 +75,12 @@ declare global {
         prototype: HTMLFormLoginElement;
         new (): HTMLFormLoginElement;
     };
+    interface HTMLFormRegisterElement extends Components.FormRegister, HTMLStencilElement {
+    }
+    var HTMLFormRegisterElement: {
+        prototype: HTMLFormRegisterElement;
+        new (): HTMLFormRegisterElement;
+    };
     interface HTMLFormResetPasswordElement extends Components.FormResetPassword, HTMLStencilElement {
     }
     var HTMLFormResetPasswordElement: {
@@ -81,6 +93,12 @@ declare global {
         prototype: HTMLPage404Element;
         new (): HTMLPage404Element;
     };
+    interface HTMLPageEmailVerificationElement extends Components.PageEmailVerification, HTMLStencilElement {
+    }
+    var HTMLPageEmailVerificationElement: {
+        prototype: HTMLPageEmailVerificationElement;
+        new (): HTMLPageEmailVerificationElement;
+    };
     interface HTMLPageForgotPasswordElement extends Components.PageForgotPassword, HTMLStencilElement {
     }
     var HTMLPageForgotPasswordElement: {
@@ -92,6 +110,12 @@ declare global {
     var HTMLPageLoginElement: {
         prototype: HTMLPageLoginElement;
         new (): HTMLPageLoginElement;
+    };
+    interface HTMLPageRegisterElement extends Components.PageRegister, HTMLStencilElement {
+    }
+    var HTMLPageRegisterElement: {
+        prototype: HTMLPageRegisterElement;
+        new (): HTMLPageRegisterElement;
     };
     interface HTMLPageResetPasswordElement extends Components.PageResetPassword, HTMLStencilElement {
     }
@@ -106,10 +130,13 @@ declare global {
         "app-root": HTMLAppRootElement;
         "form-forgot-password": HTMLFormForgotPasswordElement;
         "form-login": HTMLFormLoginElement;
+        "form-register": HTMLFormRegisterElement;
         "form-reset-password": HTMLFormResetPasswordElement;
         "page-404": HTMLPage404Element;
+        "page-email-verification": HTMLPageEmailVerificationElement;
         "page-forgot-password": HTMLPageForgotPasswordElement;
         "page-login": HTMLPageLoginElement;
+        "page-register": HTMLPageRegisterElement;
         "page-reset-password": HTMLPageResetPasswordElement;
     }
 }
@@ -127,14 +154,20 @@ declare namespace LocalJSX {
     }
     interface FormLogin {
     }
+    interface FormRegister {
+    }
     interface FormResetPassword {
         "token": string;
     }
     interface Page404 {
     }
+    interface PageEmailVerification {
+    }
     interface PageForgotPassword {
     }
     interface PageLogin {
+    }
+    interface PageRegister {
     }
     interface PageResetPassword {
         "token"?: string;
@@ -146,10 +179,13 @@ declare namespace LocalJSX {
         "app-root": AppRoot;
         "form-forgot-password": FormForgotPassword;
         "form-login": FormLogin;
+        "form-register": FormRegister;
         "form-reset-password": FormResetPassword;
         "page-404": Page404;
+        "page-email-verification": PageEmailVerification;
         "page-forgot-password": PageForgotPassword;
         "page-login": PageLogin;
+        "page-register": PageRegister;
         "page-reset-password": PageResetPassword;
     }
 }
@@ -163,10 +199,13 @@ declare module "@stencil/core" {
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
             "form-forgot-password": LocalJSX.FormForgotPassword & JSXBase.HTMLAttributes<HTMLFormForgotPasswordElement>;
             "form-login": LocalJSX.FormLogin & JSXBase.HTMLAttributes<HTMLFormLoginElement>;
+            "form-register": LocalJSX.FormRegister & JSXBase.HTMLAttributes<HTMLFormRegisterElement>;
             "form-reset-password": LocalJSX.FormResetPassword & JSXBase.HTMLAttributes<HTMLFormResetPasswordElement>;
             "page-404": LocalJSX.Page404 & JSXBase.HTMLAttributes<HTMLPage404Element>;
+            "page-email-verification": LocalJSX.PageEmailVerification & JSXBase.HTMLAttributes<HTMLPageEmailVerificationElement>;
             "page-forgot-password": LocalJSX.PageForgotPassword & JSXBase.HTMLAttributes<HTMLPageForgotPasswordElement>;
             "page-login": LocalJSX.PageLogin & JSXBase.HTMLAttributes<HTMLPageLoginElement>;
+            "page-register": LocalJSX.PageRegister & JSXBase.HTMLAttributes<HTMLPageRegisterElement>;
             "page-reset-password": LocalJSX.PageResetPassword & JSXBase.HTMLAttributes<HTMLPageResetPasswordElement>;
         }
     }

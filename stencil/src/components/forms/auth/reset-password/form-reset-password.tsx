@@ -4,6 +4,7 @@ import serialize from 'form-serialize';
 import { ToastService } from '../../../../services/toast.service';
 import { APIService } from '../../../../services/api.service';
 import { RouterService } from '../../../../services/router.service';
+import { LoadingService } from '../../../../services/loading.service';
 
 @Component({
     tag: 'form-reset-password',
@@ -60,6 +61,8 @@ export class FormResetPassword {
             return;
         }
 
+        await LoadingService.showLoading();
+
         let results = serialize(this.form, { hash: true, empty: true });
 
         try {
@@ -75,6 +78,8 @@ export class FormResetPassword {
         } catch (e) {
             ToastService.error(e.message);
         }
+
+        await LoadingService.hideLoading();
     }
 
     render() {
@@ -86,6 +91,7 @@ export class FormResetPassword {
                     ref={el => this.form = el as HTMLFormElement }
                 >
                     <fieldset>
+                        <h1>Password Reset</h1>
                         <div class="pure-control-group">
                             <label htmlFor="reset-password-form-password">Password</label>
                             <input

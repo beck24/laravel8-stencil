@@ -26,3 +26,5 @@ Route::post('/login', 'Laravel\Fortify\Http\Controllers\AuthenticatedSessionCont
 Route::post('/logout', 'Laravel\Fortify\Http\Controllers\AuthenticatedSessionController@destroy');
 Route::post('/forgot-password', 'Laravel\Fortify\Http\Controllers\PasswordResetLinkController@store');
 Route::post('/reset-password', 'Laravel\Fortify\Http\Controllers\NewPasswordController@store');
+Route::post('/register', 'Laravel\Fortify\Http\Controllers\RegisteredUserController@store');
+Route::post('/email/verification-notification', 'Laravel\Fortify\Http\Controllers\EmailVerificationNotificationController@store');
