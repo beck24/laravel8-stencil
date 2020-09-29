@@ -128,6 +128,15 @@ export class FormLogin {
         await LoadingService.hideLoading();
     }
 
+    toggleState() {
+        if (!auth.getters.isLoggedIn()) {
+            auth.actions.login(true)
+        }
+        else {
+            auth.actions.logout();
+        }
+    }
+
     render() {
         return (
             <div>
@@ -196,7 +205,7 @@ export class FormLogin {
                     : null
                 }
 
-                <button type="button" class="pure-button pure-button-primary" onClick={ () => auth.state.user = !auth.state.user }>Toggle User</button>
+                <button type="button" class="pure-button pure-button-primary" onClick={ () =>  this.toggleState() }>Toggle User</button>
                 
             </div>
         )

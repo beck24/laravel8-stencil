@@ -1,4 +1,7 @@
 import { createStore } from "@stencil/store";
+import AuthGetters from './getters';
+import AuthActions from './actions';
+
 
 const { state, onChange } = createStore({
   user: null,
@@ -9,16 +12,18 @@ onChange('user', value => {
     state.isLoggedIn = !!value;
 });
 
-const getters = {
-    isLoggedIn: () => {
-        return !!state.user;
-    }
-}
+// const actions = {
+//     login: user => {
+//         state.user = {...user};
+//     },
+//     logout: () => {
+//         state.user = null;
+//     }
+// }
 
-const authStore = {
+
+export default {
     state,
-    getters
-}
-
-
-export default authStore;
+    getters: new AuthGetters(state),
+    actions: new AuthActions(state)
+};

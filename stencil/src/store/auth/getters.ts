@@ -1,10 +1,17 @@
-const authGetters = {
-    getUser: state => {
-        return state.auth.user;
-    },
-    isLoggedIn: state => {
-        return !!state.auth.user
+class AuthGetters {
+    state: any = {};
+
+    constructor(state) {
+        this.state = state;
+    }
+
+    getUser() {
+        return this.state.user;
+    }
+
+    isLoggedIn() {
+        return !!this.state.user;
     }
 }
 
-export default authGetters;
+export default AuthGetters;
