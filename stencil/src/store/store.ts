@@ -1,13 +1,17 @@
 import { createStore } from "@stencil/store";
 
-const { state, onChange } = createStore({
-  clicks: 0,
-  seconds: 0,
-  squaredClicks: 0
-});
+const shouldUpdate = (newValue, oldValue, _propChanged) => {
+  return JSON.stringify(newValue) !== JSON.stringify(oldValue);
+}
 
-onChange('seconds', value => {
-  state.squaredClicks = Math.round(Math.random() * value);
-});
+const { state } = createStore({
+  auth: {
+    user: null
+  },
+  count: 0,
+  test: {
+    foo: null
+  }
+}, shouldUpdate);
 
 export default state;

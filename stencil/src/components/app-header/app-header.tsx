@@ -10,7 +10,7 @@ export class AppHeader {
             <ion-header>
                 <ion-toolbar color="primary">
                     <ion-buttons slot="start">
-                        <ion-back-button />
+                        <ion-button href="/">Home</ion-button>
                     </ion-buttons>
                     
                     <ion-title>Home</ion-title>
