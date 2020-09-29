@@ -32,8 +32,17 @@
 
 @import "~purecss/build/pure-min.css";
 @import "~purecss/build/forms-min.css";
-@import './styles/variables.scss';
+
+@import 'styles/variables';
+@import 'styles/forms';
 
 .section {
   padding: 24px 12px;
+}
+
+.errors {
+  color: $color-danger;
+  padding: 1rem;
+  border: 1px solid $color-danger;
+  margin: 1rem 0;
 }

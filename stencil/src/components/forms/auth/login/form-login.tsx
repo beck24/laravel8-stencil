@@ -12,6 +12,7 @@ import { RouterService } from '../../../../services/router.service';
 })
 export class FormLogin {
     @State() errors: string[] = [];
+    @State() errorMessages: string[] = [];
 
     form: HTMLFormElement;
     isDirty: boolean = false;
@@ -26,19 +27,24 @@ export class FormLogin {
     
     validate() {
         const errors = [];
+        const errorMessages = [];
+
         let results = serialize(this.form, { hash: true, empty: true });
     
         if (!results.email) {
-          errors.push('Please enter an email address');
+          errorMessages.push('Please enter an email address');
+          errors.push('email');
         }
         else {
           if (!Isemail.validate(results.email)) {
-            errors.push('Please enter a valid email address');
+            errorMessages.push('Please enter a valid email address');
+            errors.push('email');
           }
         }
     
         if (!results.password) {
-          errors.push('Please enter your password');
+          errorMessages.push('Please enter your password');
+          errors.push('password');
         }
     
         this.errors = errors;
@@ -73,7 +79,23 @@ export class FormLogin {
                 }
             }
             else {
-                ToastService.error('Could not log in, please try again');
+                const body = await loginResponse.json();
+
+                if (body) {
+                    const errorMessages = [];
+                    const errors = [];
+
+                    Object.keys(body.errors).forEach(err => {
+                        errorMessages.push(body.errors[err]);
+                        errors.push(err);
+                    });
+
+                    this.errors = errors;
+                    this.errorMessages = errorMessages;
+                }
+                else {
+                    ToastService.error('Could not log in, please try again');
+                }
             }
         } catch (e) {
             ToastService.error(e.message);
@@ -118,7 +140,7 @@ export class FormLogin {
                                 type="email"
                                 name="email"
                                 value=""
-                                class="block"
+                                class={ this.errors.includes('email') ? 'block error' : 'block'}
                                 placeholder="Email"
                                 onChange={() => this.validateDirtyInputs() }
                             />
@@ -131,7 +153,7 @@ export class FormLogin {
                                 type="password"
                                 name="password"
                                 value=""
-                                class="block"
+                                class={ this.errors.includes('password') ? 'block error' : 'block'}
                                 placeholder="Password"
                                 onChange={() => this.validateDirtyInputs() }
                             />
@@ -140,9 +162,9 @@ export class FormLogin {
                         <div class="pure-controls">
 
                             {
-                                this.errors.length ? <div class="errors">
+                                this.errorMessages.length ? <div class="errors">
                                 {
-                                    this.errors.map(e => <div>{e}</div>)
+                                    this.errorMessages.map(e => <div>{e}</div>)
                                 }
                                 </div>
                                 : null
@@ -154,7 +176,8 @@ export class FormLogin {
                         </div>
 
                         <div style={{'padding': '1em 0 0 11em'}}>
-                            <ion-router-link href={ RouterService.getRoute('forgot-password') }>Forgot Password?</ion-router-link>
+                            <ion-router-link href={ RouterService.getRoute('forgot-password') }>Forgot Password?</ion-router-link><br /><br />
+                            Don't have an account? <ion-router-link href={ RouterService.getRoute('register') }>Sign up</ion-router-link>
                         </div>
                     </fieldset>
                 </form>

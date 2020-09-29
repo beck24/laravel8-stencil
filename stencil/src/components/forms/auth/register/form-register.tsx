@@ -12,6 +12,7 @@ import { LoadingService } from '../../../../services/loading.service';
 })
 export class FormRegister {
     @State() errors: string[] = [];
+    @State() errorMessages: string[] = [];
 
     form: HTMLFormElement;
     isDirty: boolean = false;
@@ -26,31 +27,38 @@ export class FormRegister {
     
     validate() {
         const errors = [];
+        const errorMessages = [];
         let results = serialize(this.form, { hash: true, empty: true });
 
         if (!results.name) {
-            errors.push('Please enter your name');
+            errorMessages.push('Please enter your name');
+            errors.push('name');
         }
     
         if (!results.email) {
-          errors.push('Invalid email address');
+          errorMessages.push('Invalid email address');
+          errors.push('email');
         }
         else {
           if (!Isemail.validate(results.email)) {
-            errors.push('Invalid email address');
+            errorMessages.push('Invalid email address');
+            errors.push('email');
           }
         }
 
         if (!results.password) {
-            errors.push('Please enter a password');
+            errorMessages.push('Please enter a password');
+            errors.push('password');
         }
         else {
             if (results.password !== results.password_confirmation) {
-                errors.push('Password and confirmation should match');
+                errorMessages.push('Password and confirmation should match');
+                errors.push('password_confirmation');
             }
         }
     
         this.errors = errors;
+        this.errorMessages = errorMessages;
     
         return !errors.length;
     }
@@ -75,7 +83,24 @@ export class FormRegister {
                 RouterService.forward(RouterService.getRoute('email-verification'));
             }
             else {
-                ToastService.error('There was an issue contacting the server');
+                const body = await response.json();
+
+                if (body) {
+                    ToastService.error(body.message);
+
+                    const errorMessages = [];
+                    const errors = [];
+
+                    Object.keys(body.errors).forEach(err => {
+                        errorMessages.push(body.errors[err]);
+                        errors.push(err);
+                    });
+
+                    this.errors = errors;
+                    this.errorMessages = errorMessages;
+                } else {
+                    ToastService.error('Could not create your account, please try again');
+                }
             }
         } catch (e) {
             ToastService.error(e.message);
@@ -102,7 +127,7 @@ export class FormRegister {
                                 type="text"
                                 name="name"
                                 value=""
-                                class="block"
+                                class={ this.errors.includes('name') ? 'block error' : 'block'}
                                 onChange={() => this.validateDirtyInputs() }
                             />
                         </div>
@@ -114,7 +139,7 @@ export class FormRegister {
                                 type="email"
                                 name="email"
                                 value=""
-                                class="block"
+                                class={ this.errors.includes('email') ? 'block error' : 'block'}
                                 onChange={() => this.validateDirtyInputs() }
                             />
                         </div>
@@ -126,7 +151,7 @@ export class FormRegister {
                                 type="password"
                                 name="password"
                                 value=""
-                                class="block"
+                                class={ this.errors.includes('password') ? 'block error' : 'block'}
                                 onChange={() => this.validateDirtyInputs() }
                             />
                         </div>
@@ -138,7 +163,7 @@ export class FormRegister {
                                 type="password"
                                 name="password_confirmation"
                                 value=""
-                                class="block"
+                                class={ this.errors.includes('password_confirmation') ? 'block error' : 'block'}
                                 onChange={() => this.validateDirtyInputs() }
                             />
                         </div>
@@ -146,9 +171,9 @@ export class FormRegister {
                         <div class="pure-controls">
 
                             {
-                                this.errors.length ? <div class="errors">
+                                this.errorMessages.length ? <div class="errors">
                                 {
-                                    this.errors.map(e => <div>{e}</div>)
+                                    this.errorMessages.map(e => <div>{e}</div>)
                                 }
                                 </div>
                                 : null
@@ -157,6 +182,10 @@ export class FormRegister {
                             <button type="submit" class="pure-button pure-button-primary">
                                 Register
                             </button>
+                        </div>
+
+                        <div style={{ 'padding': '2em 0 0 11em' }}>
+                            Already a member? <ion-router-link href={ RouterService.getRoute('login') }>Log in</ion-router-link>
                         </div>
                     </fieldset>
                 </form>
