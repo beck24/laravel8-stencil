@@ -1,20 +1,11 @@
 import { Component, h } from '@stencil/core';
 import { RouterService } from '../../services/router.service';
-import state from '../../store/store';
 
 @Component({
   tag: 'app-home',
   styleUrl: 'app-home.scss',
 })
 export class AppHome {
-
-  logout() {
-    console.log(state);
-
-    state.auth = { user: null };
-
-    console.log(state);
-  }
 
   render() {
     return [
@@ -34,14 +25,7 @@ export class AppHome {
           Profile page
         </ion-button>
 
-        {
-          state.auth.user ?
-            <ion-button onClick={ () => this.logout() } expand="block">Log Out</ion-button>
-          :
-            <ion-button href={ RouterService.getRoute('login') } expand="block">Log In</ion-button>
-        }
-
-<button class="pure-button pure-button-primary" onClick={() => state.test = state.test.foo ? { foo: null } : { foo: 'bar' } }>Count { state.test.foo ? state.test.foo : 'null' }</button>
+        <ion-button href={ RouterService.getRoute('login') } expand="block">Log In</ion-button>
         
       </ion-content>,
     ];

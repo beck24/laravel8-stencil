@@ -5,7 +5,7 @@ import { ToastService } from '../../../../services/toast.service';
 import { LoadingService } from '../../../../services/loading.service'
 import { APIService } from '../../../../services/api.service';
 import { RouterService } from '../../../../services/router.service';
-import state from '../../../../store/store';
+import auth from '../../../../store/auth/auth';
 
 @Component({
     tag: 'form-login',
@@ -14,14 +14,10 @@ import state from '../../../../store/store';
 export class FormLogin {
     @State() errors: string[] = [];
     @State() errorMessages: string[] = [];
-    @State() user: any;
+    @State() renderCount: number = 0;
 
     form: HTMLFormElement;
     isDirty: boolean = false;
-
-    componentWillLoad() {
-        this.user = state.auth.user;
-    }
 
     validateDirtyInputs() {
         if (!this.isDirty) {
@@ -78,12 +74,8 @@ export class FormLogin {
                 let userResponse = await APIService.get({ endpoint: 'user' });
 
                 if (userResponse.ok) {
-                    console.log(state);
-                    const auth = state.auth;
-                    auth.user = await userResponse.json();
+                    // auth.user = await userResponse.json();
 
-                    state.auth = auth;
-                    console.log(state);
                     ToastService.success('You have been logged in.');
                 }
                 else {
@@ -123,8 +115,7 @@ export class FormLogin {
             let response = await APIService.post({ endpoint: 'logout' });
 
             if (response.ok) {
-                console.log(state);
-                state.auth = { user: null };
+                // auth.user = null;
                 ToastService.success('You have been logged out');
             }
             else {
@@ -197,7 +188,7 @@ export class FormLogin {
                 </form>
 
                 {
-                    state.auth.user !== null ?
+                    auth.getters.isLoggedIn() ?
                     <button type="button" class="pure-button pure-button-primary" onClick={() => this.logout() }>
                         Log Out
                     </button>
@@ -205,7 +196,7 @@ export class FormLogin {
                     : null
                 }
 
-<button class="pure-button pure-button-primary" onClick={() => state.test = state.test.foo ? { foo: null } : { foo: 'bar' } }>Count { state.test.foo ? state.test.foo : 'null' }</button>
+                <button type="button" class="pure-button pure-button-primary" onClick={ () => auth.state.user = !auth.state.user }>Toggle User</button>
                 
             </div>
         )

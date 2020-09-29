@@ -1,17 +1,12 @@
-import { createStore } from "@stencil/store";
 
-const shouldUpdate = (newValue, oldValue, _propChanged) => {
-  return JSON.stringify(newValue) !== JSON.stringify(oldValue);
-}
+// import { createStore } from "@stencil/store";
+// import auth from './auth/initialstate';
+// import authMutations from './auth/mutations';
 
-const { state } = createStore({
-  auth: {
-    user: null
-  },
-  count: 0,
-  test: {
-    foo: null
-  }
-}, shouldUpdate);
+// const { state, onChange } = createStore({
+//   auth
+// });
 
-export default state;
+// authMutations.init(onChange);
+
+// export default state;
