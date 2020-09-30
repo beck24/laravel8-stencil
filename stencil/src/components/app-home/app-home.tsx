@@ -1,11 +1,26 @@
 import { Component, h } from '@stencil/core';
+import { LoadingService } from '../../services/loading.service';
 import { RouterService } from '../../services/router.service';
+import { ToastService } from '../../services/toast.service';
+import auth from '../../store/auth';
 
 @Component({
   tag: 'app-home',
   styleUrl: 'app-home.scss',
 })
 export class AppHome {
+
+  async logout() {
+    await LoadingService.showLoading();
+
+    try {
+      ToastService.success(await auth.actions.logout());
+    } catch (e) {
+      ToastService.error(e.message);
+    }
+
+    await LoadingService.hideLoading();
+ }
 
   render() {
     return [
@@ -25,7 +40,13 @@ export class AppHome {
           Profile page
         </ion-button>
 
-        <ion-button href={ RouterService.getRoute('login') } expand="block">Log In</ion-button>
+        { 
+          auth.getters.isLoggedIn() ?
+            <ion-button onClick={ () => this.logout() } expand="block">Log out</ion-button>
+          :
+            <ion-button href={ RouterService.getRoute('login') } expand="block">Log In</ion-button>
+        }
+        
         
       </ion-content>,
     ];

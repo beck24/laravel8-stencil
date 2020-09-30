@@ -3,9 +3,8 @@ import Isemail from 'isemail';
 import serialize from 'form-serialize';
 import { ToastService } from '../../../../services/toast.service';
 import { LoadingService } from '../../../../services/loading.service'
-import { APIService } from '../../../../services/api.service';
 import { RouterService } from '../../../../services/router.service';
-import auth from '../../../../store/auth/auth';
+import auth from '../../../../store/auth';
 
 @Component({
     tag: 'form-login',
@@ -68,37 +67,20 @@ export class FormLogin {
         let results = serialize(this.form, { hash: true, empty: true });
 
         try {
-            let loginResponse = await APIService.post({ endpoint: 'login', data: results });
+            const result = await auth.actions.login(results.email, results.password);
 
-            if (loginResponse.ok) {
-                let userResponse = await APIService.get({ endpoint: 'user' });
-
-                if (userResponse.ok) {
-                    // auth.user = await userResponse.json();
-
-                    ToastService.success('You have been logged in.');
-                }
-                else {
-                    ToastService.error('Could not load account info.');
-                }
+            if (result.success) {
+                ToastService.success(result.message);
             }
             else {
-                const body = await loginResponse.json();
+                ToastService.error(result.message);
 
-                if (body) {
-                    const errorMessages = [];
-                    const errors = [];
-
-                    Object.keys(body.errors).forEach(err => {
-                        errorMessages.push(body.errors[err]);
-                        errors.push(err);
-                    });
-
-                    this.errors = errors;
-                    this.errorMessages = errorMessages;
+                if (result.hasOwnProperty('errors')) {
+                    this.errors = result.errors;
                 }
-                else {
-                    ToastService.error('Could not log in, please try again');
+    
+                if (result.hasOwnProperty('errorMessages')) {
+                    this.errorMessages = result.errorMessages;
                 }
             }
         } catch (e) {
@@ -106,35 +88,6 @@ export class FormLogin {
         }
 
         await LoadingService.hideLoading();
-    }
-
-    async logout() {
-        await LoadingService.showLoading();
-
-        try {
-            let response = await APIService.post({ endpoint: 'logout' });
-
-            if (response.ok) {
-                // auth.user = null;
-                ToastService.success('You have been logged out');
-            }
-            else {
-                ToastService.error('There was an issue reaching the server, please try again');
-            }
-        } catch (e) {
-            ToastService.error(e.message);
-        }
-
-        await LoadingService.hideLoading();
-    }
-
-    toggleState() {
-        if (!auth.getters.isLoggedIn()) {
-            auth.actions.login(true)
-        }
-        else {
-            auth.actions.logout();
-        }
     }
 
     render() {
@@ -195,18 +148,6 @@ export class FormLogin {
                         </div>
                     </fieldset>
                 </form>
-
-                {
-                    auth.getters.isLoggedIn() ?
-                    <button type="button" class="pure-button pure-button-primary" onClick={() => this.logout() }>
-                        Log Out
-                    </button>
-
-                    : null
-                }
-
-                <button type="button" class="pure-button pure-button-primary" onClick={ () =>  this.toggleState() }>Toggle User</button>
-                
             </div>
         )
     }

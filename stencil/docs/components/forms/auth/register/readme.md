@@ -1,4 +1,4 @@
-# form-login
+# form-register
 
 
 
@@ -9,7 +9,7 @@
 
 ### Used by
 
- - [page-login](../../../pages/auth/page-login)
+ - [page-register](../../../pages/auth/page-register)
 
 ### Depends on
 
@@ -18,9 +18,9 @@
 ### Graph
 ```mermaid
 graph TD;
-  form-login --> ion-router-link
-  page-login --> form-login
-  style form-login fill:#f9f,stroke:#333,stroke-width:4px
+  form-register --> ion-router-link
+  page-register --> form-register
+  style form-register fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

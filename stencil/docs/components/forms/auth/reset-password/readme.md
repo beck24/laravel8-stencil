@@ -1,0 +1,30 @@
+# form-reset-password
+
+
+
+<!-- Auto Generated Below -->
+
+
+## Properties
+
+| Property             | Attribute | Description | Type     | Default     |
+| -------------------- | --------- | ----------- | -------- | ----------- |
+| `token` _(required)_ | `token`   |             | `string` | `undefined` |
+
+
+## Dependencies
+
+### Used by
+
+ - [page-reset-password](../../../pages/auth/page-reset-password)
+
+### Graph
+```mermaid
+graph TD;
+  page-reset-password --> form-reset-password
+  style form-reset-password fill:#f9f,stroke:#333,stroke-width:4px
+```
+
+----------------------------------------------
+
+Built by Matt, using Stencil

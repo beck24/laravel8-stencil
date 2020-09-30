@@ -1,6 +1,7 @@
 import { Component, h } from '@stencil/core';
 import { SEOService } from "../../services/seo.service";
 import { RouterService } from '../../services/router.service';
+import auth from '../../store/auth';
 
 @Component({
   tag: 'app-root',
@@ -8,9 +9,32 @@ import { RouterService } from '../../services/router.service';
 })
 export class AppRoot {
   render() {
+
+    // routes to make available only for not-logged-in users
+    const notLoggedInRoutes = [
+      RouterService.getRoute('register'),
+      RouterService.getRoute('login'),
+      RouterService.getRoute('forgot-password'),
+      "/reset-password/:token",
+    ];
+
+    // routes to make available to only logged in users
+    const loggedInRoutes = [
+      "/profile/*"
+    ];
+
     return (
       <ion-app>
         <ion-router useHash={false} onIonRouteDidChange={e => { SEOService.update(e) }}>
+
+          {
+            // redirect login pages if logged in
+            auth.getters.isLoggedIn() ?
+              notLoggedInRoutes.map(r => <ion-route-redirect from={ r } to="/" /> )
+            :
+              loggedInRoutes.map(r => <ion-route-redirect from={ r } to="/login" /> )
+          }
+
           <ion-route url={ RouterService.getRoute('home') } component="app-home" />
           <ion-route url="/profile/:name" component="app-profile" />
 

@@ -1,3 +1,5 @@
+import { APIService } from '../../services/api.service';
+
 class AuthActions {
     state: any = {};
 
@@ -5,12 +7,68 @@ class AuthActions {
         this.state = state;
     }
 
-    login(user) {
-        this.state.user = {...user};
+    async login(email, password) {
+        try {
+            let loginResponse = await APIService.post({ endpoint: 'login', data: { email, password }});
+
+            if (loginResponse.ok) {
+                let userResponse = await APIService.get({ endpoint: 'user' });
+
+                if (userResponse.ok) {
+                    this.state.user = {...await userResponse.json()};
+
+                    return {
+                        success: true,
+                        message: 'You have been logged in.'
+                    };
+                }
+                else {
+                    throw 'Could not load account info.';
+                }
+            }
+            else {
+                const body = await loginResponse.json();
+
+                if (body) {
+                    const errorMessages = [];
+                    const errors = [];
+
+                    Object.keys(body.errors).forEach(err => {
+                        errorMessages.push(body.errors[err]);
+                        errors.push(err);
+                    });
+
+                    return {
+                        success: false,
+                        errors,
+                        errorMessages,
+                        message: 'Could not log in, please try again'
+                    };
+
+                }
+                else {
+                    throw 'Could not log in, please try again';
+                }
+            }
+        } catch (e) {
+            throw e;
+        }
     }
 
-    logout() {
-        this.state.user = null;
+    async logout() {
+        try {
+            let response = await APIService.post({ endpoint: 'logout' });
+    
+            if (response.ok) {
+                this.state.user = null;
+                return 'You have been logged out';
+            }
+            else {
+                throw 'There was an issue reaching the server, please try again';
+            }
+        } catch (e) {
+            throw e;
+        }
     }
 }
 
