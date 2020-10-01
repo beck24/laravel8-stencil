@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SPAController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +23,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 });
 
 // public routes
+Route::get('/init', [SPAController::class, 'init']);
 Route::post('/login', 'Laravel\Fortify\Http\Controllers\AuthenticatedSessionController@store');
 Route::post('/logout', 'Laravel\Fortify\Http\Controllers\AuthenticatedSessionController@destroy');
 Route::post('/forgot-password', 'Laravel\Fortify\Http\Controllers\PasswordResetLinkController@store');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Auth;
 
 class SPAController extends Controller
 {
@@ -23,5 +24,17 @@ class SPAController extends Controller
         });
 
         return response($html);
+    }
+
+
+    /**
+     * Provide any data we need to run the app from the beginning
+     */
+    public function init(Request $request) {
+        $user = Auth::user();
+
+        return response()->json([
+            'user' => $user ? $user : null
+        ]);
     }
 }

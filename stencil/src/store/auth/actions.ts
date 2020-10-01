@@ -7,6 +7,30 @@ class AuthActions {
         this.state = state;
     }
 
+    /**
+     * Called when the app first loads to determine if the user is already logged in
+     */
+    async init() {
+        const response = await APIService.get({ endpoint: 'init' });
+
+        if (response.ok) {
+            const result = await response.json();
+
+            if (result.user) {
+                this.state.user = { ...result.user };
+            }
+        }
+        else {
+            // nothing we can really do here to be honest
+        }
+    }
+
+    /**
+     * Authenticate the user via supplied credentials
+     * 
+     * @param email 
+     * @param password 
+     */
     async login(email, password) {
         try {
             let loginResponse = await APIService.post({ endpoint: 'login', data: { email, password }});
@@ -55,6 +79,9 @@ class AuthActions {
         }
     }
 
+    /**
+     * End the users session and drop the local state
+     */
     async logout() {
         try {
             let response = await APIService.post({ endpoint: 'logout' });
