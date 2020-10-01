@@ -7,6 +7,10 @@ import { sayHello } from '../../helpers/utils';
 })
 export class AppProfile {
   @State() state = false;
+
+  /**
+   * The name of the user
+   */
   @Prop() name: string;
 
   formattedName(): string {

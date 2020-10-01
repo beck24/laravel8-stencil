@@ -37,6 +37,31 @@ const dotEnvPlugin = () => {
   };
 };
 
+const outputTargets: any = [
+  {
+    type: 'www',
+    dir: envVars.parsed.LARAVEL_DIR + '/public',
+    empty: true,
+    serviceWorker: null,
+    baseUrl: envVars.parsed.BASE_URL,
+    copy: [
+      {
+        src: envVars.parsed.LARAVEL_DIR + '/public-laravel',
+        dest: './'
+      }
+    ]
+  }
+];
+
+if (envVars.parsed.BUILD_DOCS) {
+  outputTargets.push({
+    type: 'docs-readme',
+    footer: 'Built by Matt, using Stencil',
+    dir: './docs',
+    strict: true
+  });
+}
+
 
 export const config: Config = {
   globalScript: 'src/global/app.ts',
@@ -45,27 +70,7 @@ export const config: Config = {
   devServer: {
     port: parseInt(envVars.parsed.STENCIL_DEV_SERVER_PORT)
   },
-  outputTargets: [
-    {
-      type: 'www',
-      dir: envVars.parsed.LARAVEL_DIR + '/public',
-      empty: true,
-      serviceWorker: null,
-      baseUrl: envVars.parsed.BASE_URL,
-      copy: [
-        {
-          src: envVars.parsed.LARAVEL_DIR + '/public-laravel',
-          dest: './'
-        }
-      ]
-    },
-    {
-      type: 'docs-readme',
-      footer: 'Built by Matt, using Stencil',
-      dir: './docs',
-      strict: true
-    }
-  ],
+  outputTargets,
   plugins: [
     dotEnvPlugin(),
     sass()
