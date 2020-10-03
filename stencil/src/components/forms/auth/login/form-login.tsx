@@ -8,7 +8,8 @@ import auth from '../../../../store/auth';
 
 @Component({
     tag: 'form-login',
-    styleUrl: 'form-login.scss'
+    styleUrl: 'form-login.scss',
+    assetsDirs: ['lang']
 })
 export class FormLogin {
     @State() errors: string[] = [];
@@ -148,6 +149,8 @@ export class FormLogin {
                         </div>
                     </fieldset>
                 </form>
+
+                <language-test />
             </div>
         )
     }

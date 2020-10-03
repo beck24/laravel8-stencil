@@ -2,7 +2,7 @@ import { Component, h, State } from '@stencil/core';
 import { SEOService } from "../../services/seo.service";
 import { RouterService } from '../../services/router.service';
 import auth from '../../store/auth';
-import { LoadingService } from '../../services/loading.service';
+// import { LoadingService } from '../../services/loading.service';
 
 @Component({
   tag: 'app-root',
@@ -12,13 +12,13 @@ export class AppRoot {
   @State() authStateSet: boolean = false;
 
   async componentDidLoad() {
-    await LoadingService.showLoading();
+    // await LoadingService.showLoading();
 
-    await auth.actions.init();
+    // await auth.actions.init();
 
-    this.authStateSet = true;
+    // this.authStateSet = true;
 
-    await LoadingService.hideLoading();
+    // await LoadingService.hideLoading();
   }
 
   render() {

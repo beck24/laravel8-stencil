@@ -1,26 +1,19 @@
-import { createStore } from "@stencil/store";
+// import { createStore } from "@stencil/store";
+import { createLocalStore } from 'stencil-store-storage';
 import AuthGetters from './getters';
 import AuthActions from './actions';
 
-
-const { state, onChange } = createStore({
+let initialState = {
   user: null,
   isLoggedIn: false
-});
+};
+
+// https://github.com/Serabe/stencil-store-storage
+const { state, onChange } = createLocalStore('auth', initialState, true);
 
 onChange('user', value => {
     state.isLoggedIn = !!value;
 });
-
-// const actions = {
-//     login: user => {
-//         state.user = {...user};
-//     },
-//     logout: () => {
-//         state.user = null;
-//     }
-// }
-
 
 export default {
     state,
