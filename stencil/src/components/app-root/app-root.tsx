@@ -3,13 +3,18 @@ import { SEOService } from "../../services/seo.service";
 import { RouterService } from '../../services/router.service';
 import auth from '../../store/auth';
 // import { LoadingService } from '../../services/loading.service';
+import { i18nService } from '../../services/i18n.service';
 
 @Component({
   tag: 'app-root',
   styleUrl: 'app-root.scss',
 })
 export class AppRoot {
-  @State() authStateSet: boolean = false;
+  @State() authStateSet: boolean = true;
+
+  componentWillLoad() {
+    i18nService.loadLanguage(i18nService.getLanguage());
+  }
 
   async componentDidLoad() {
     // await LoadingService.showLoading();
@@ -19,6 +24,10 @@ export class AppRoot {
     // this.authStateSet = true;
 
     // await LoadingService.hideLoading();
+
+    setTimeout(() => {
+      i18nService.setLanguage('fr');
+    }, 4000);
   }
 
   render() {
