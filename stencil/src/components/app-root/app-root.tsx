@@ -24,10 +24,6 @@ export class AppRoot {
     // this.authStateSet = true;
 
     // await LoadingService.hideLoading();
-
-    setTimeout(() => {
-      i18nService.setLanguage('fr');
-    }, 4000);
   }
 
   render() {

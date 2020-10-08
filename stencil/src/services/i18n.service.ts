@@ -44,7 +44,7 @@ class i18nServiceInstance {
 
     get(key: string, params?: object) {
         const index = (obj,i) => {
-            return obj[i]
+            return obj.hasOwnProperty(i) ? obj[i] : {};
         };
 
         const jsonResult = key.split('.').reduce(index, this.strings);
