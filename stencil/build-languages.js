@@ -49,7 +49,13 @@ const buildLanguages = async () => {
         components.forEach(c => {
             sortedLang[c] = languages[lang][c];
         });
-        await writeFile('./src/assets/i18n/' + lang + '.json', JSON.stringify(sortedLang, null, 2));
+
+        try {
+            await writeFile('./src/assets/i18n/' + lang + '.json', JSON.stringify(sortedLang, null, 2));
+        }
+        catch (e) {
+            console.log(e);
+        }
     });
 
     console.log('*****************************');
