@@ -1,13 +1,22 @@
 class i18nServiceInstance {
     language: string = 'en';
+    languagesLoaded: string[];
 
     strings: any = {};
 
     constructor() {
         this.language = this.getLanguage();
+        this.languagesLoaded = [];
     }
 
-    async loadLanguage(locale) {
+    async loadLanguage(locale: string, refresh: boolean = false) {
+        // only attempt to fetch the json file once
+        if (this.languagesLoaded.includes(locale) && !refresh) {
+            return;
+        }
+
+        this.languagesLoaded = [locale, ...this.languagesLoaded];
+
         // const existingTranslations = JSON.parse(sessionStorage.getItem(`i18n.${locale}`));
         // if (existingTranslations && Object.keys(existingTranslations).length > 0) {
         //     return existingTranslations;
@@ -19,6 +28,9 @@ class i18nServiceInstance {
                     sessionStorage.setItem(`i18n.${locale}`, JSON.stringify(data));
                     
                     this.strings[locale] = data;
+
+                    const event = new CustomEvent('localeUpdate', { detail: locale });
+                    document.body.dispatchEvent(event);
                 }
             } catch (exception) {
                 console.error(`Error loading locale: ${locale}`, exception);
@@ -48,6 +60,10 @@ class i18nServiceInstance {
         };
 
         const locale = this.getLanguage(el);
+
+        if (!this.languagesLoaded.includes(locale)) {
+            this.loadLanguage(locale);
+        }
 
         const jsonResult = [el.tagName.toLowerCase(), ...key.split('.')].reduce(index, this.strings[locale]);
 

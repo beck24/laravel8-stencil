@@ -150,7 +150,11 @@ export class FormLogin {
                     </fieldset>
                 </form>
 
-                <language-test />
+                <button onClick={() => document.querySelector('language-test[lang="fr"]').setAttribute('lang', 'en')}>Set to Eng</button>
+
+                <language-test /><br /><br />
+
+                <language-test lang="fr" />
             </div>
         )
     }
