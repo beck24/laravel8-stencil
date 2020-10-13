@@ -1,11 +1,9 @@
 class i18nServiceInstance {
-    language: string = 'en';
     languagesLoaded: string[];
 
     strings: any = {};
 
     constructor() {
-        this.language = this.getLanguage();
         this.languagesLoaded = [];
     }
 
@@ -43,10 +41,8 @@ class i18nServiceInstance {
         return closestElement ? closestElement.lang : 'en';
     }
 
-    async setLanguage(locale: string) {
-        document.body.lang = locale;
-
-        this.language = locale;
+    async setLanguage(locale: string, el: HTMLElement = document.body) {
+        el.setAttribute('lang', locale);
 
         await this.loadLanguage(locale);
 

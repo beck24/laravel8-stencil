@@ -1,4 +1,4 @@
-import { Component, h, Listen, State, Host, Element, Prop } from '@stencil/core';
+import { Component, h, Listen, State, Host, Element } from '@stencil/core';
 import { i18nService } from '../../services/i18n.service';
 
 @Component({
@@ -6,7 +6,6 @@ import { i18nService } from '../../services/i18n.service';
 })
 export class LanguageTest {
     @Element() el: HTMLElement;
-    // @Prop({ reflect: true }) lang: string;
     @State() rerender: number = 0;
 
     @Listen('localeUpdate', { target: 'body' })
@@ -15,7 +14,6 @@ export class LanguageTest {
     }
 
     render() {
-        // console.log(this.lang);
         return (
             <Host data-rerender={this.rerender}>
                 <div>

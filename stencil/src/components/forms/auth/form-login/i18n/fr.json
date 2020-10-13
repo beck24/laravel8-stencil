@@ -1,0 +1,13 @@
+{
+  "login": "Connexion",
+  "email": "E-mail",
+  "password": "Mot de passe",
+  "forgot_password": "Mot de passe oublié?",
+  "no_account": "Vous n'avez pas de compte?",
+  "signup": "Inscription",
+  "errors": {
+    "noemail": "Veuillez saisir une adresse e-mail",
+    "emailinvalid": "Veuillez saisir une adresse e-mail valide",
+    "nopassword": "Veuillez saisir votre mot de passe"
+  }
+}

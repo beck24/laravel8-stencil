@@ -1,9 +1,10 @@
-import { Component, h, State } from '@stencil/core';
+import { Component, h, State, Listen, Host, Element } from '@stencil/core';
 import Isemail from 'isemail';
 import serialize from 'form-serialize';
 import { ToastService } from '../../../../services/toast.service';
 import { LoadingService } from '../../../../services/loading.service'
 import { RouterService } from '../../../../services/router.service';
+import { i18nService } from '../../../../services/i18n.service';
 import auth from '../../../../store/auth';
 
 @Component({
@@ -12,12 +13,18 @@ import auth from '../../../../store/auth';
     assetsDirs: ['lang']
 })
 export class FormLogin {
+    @Element() el: HTMLElement;
     @State() errors: string[] = [];
     @State() errorMessages: string[] = [];
-    @State() renderCount: number = 0;
+    @State() rerender: number = 0;
 
     form: HTMLFormElement;
     isDirty: boolean = false;
+
+    @Listen('localeUpdate', { target: 'body' })
+    localeUpdated() {
+        this.rerender++;
+    }
 
     validateDirtyInputs() {
         if (!this.isDirty) {
@@ -34,19 +41,19 @@ export class FormLogin {
         let results = serialize(this.form, { hash: true, empty: true });
     
         if (!results.email) {
-          errorMessages.push('Please enter an email address');
-          errors.push('email');
+            errorMessages.push(i18nService.get('errors.noemail', this.el));
+            errors.push('email');
         }
         else {
-          if (!Isemail.validate(results.email)) {
-            errorMessages.push('Please enter a valid email address');
-            errors.push('email');
-          }
+            if (!Isemail.validate(results.email)) {
+                errorMessages.push(i18nService.get('errors.emailinvalid', this.el));
+                errors.push('email');
+            }
         }
     
         if (!results.password) {
-          errorMessages.push('Please enter your password');
-          errors.push('password');
+            errorMessages.push(i18nService.get('errors.nopassword', this.el));
+            errors.push('password');
         }
     
         this.errors = errors;
@@ -93,8 +100,9 @@ export class FormLogin {
 
     render() {
         return (
-            <div>
-                <h1>Login</h1>
+            <Host data-rerender={this.rerender}>
+                <h1>{ i18nService.get('login', this.el) }</h1>
+
                 <form
                     class="pure-form pure-form-aligned"
                     onSubmit={e => this.handleSubmit(e)}
@@ -102,7 +110,7 @@ export class FormLogin {
                 >
                     <fieldset>
                         <div class="pure-control-group">
-                            <label htmlFor="login-form-email">Email</label>
+                            <label htmlFor="login-form-email">{ i18nService.get('email', this.el) }</label>
                             <input
                                 id="login-form-email"
                                 type="email"
@@ -115,14 +123,14 @@ export class FormLogin {
                         </div>
 
                         <div class="pure-control-group">
-                            <label htmlFor="login-form-password">Password</label>
+                            <label htmlFor="login-form-password">{ i18nService.get('password', this.el) }</label>
                             <input
                                 id="login-form-password"
                                 type="password"
                                 name="password"
                                 value=""
                                 class={ this.errors.includes('password') ? 'block error' : 'block'}
-                                placeholder="Password"
+                                placeholder={ i18nService.get('password', this.el) }
                                 onChange={() => this.validateDirtyInputs() }
                             />
                         </div>
@@ -139,23 +147,24 @@ export class FormLogin {
                             }
 
                             <button type="submit" class="pure-button pure-button-primary">
-                                Log In
+                                { i18nService.get('login', this.el) }
                             </button>
                         </div>
 
                         <div style={{'padding': '1em 0 0 11em'}}>
-                            <ion-router-link href={ RouterService.getRoute('forgot-password') }>Forgot Password?</ion-router-link><br /><br />
-                            Don't have an account? <ion-router-link href={ RouterService.getRoute('register') }>Sign up</ion-router-link>
+                            <ion-router-link href={ RouterService.getRoute('forgot-password') }>
+                                { i18nService.get('forgot_password', this.el) }
+                            </ion-router-link><br /><br />
+
+                            { i18nService.get('no_account', this.el) }&nbsp;
+                            
+                            <ion-router-link href={ RouterService.getRoute('register') }>
+                                { i18nService.get('signup', this.el) }
+                            </ion-router-link>
                         </div>
                     </fieldset>
                 </form>
-
-                <button onClick={() => document.querySelector('language-test[lang="fr"]').setAttribute('lang', 'en')}>Set to Eng</button>
-
-                <language-test /><br /><br />
-
-                <language-test lang="fr" />
-            </div>
+            </Host>
         )
     }
 }
