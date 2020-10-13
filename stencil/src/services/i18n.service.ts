@@ -16,10 +16,9 @@ class i18nServiceInstance {
                 const result = await fetch(`assets/i18n/${locale}.json`);
                 if (result.ok) {
                     const data = await result.json();
-                    console.log(data);
                     sessionStorage.setItem(`i18n.${locale}`, JSON.stringify(data));
                     
-                    this.strings = data;
+                    this.strings[locale] = data;
                 }
             } catch (exception) {
                 console.error(`Error loading locale: ${locale}`, exception);
@@ -34,6 +33,7 @@ class i18nServiceInstance {
 
     async setLanguage(locale: string) {
         document.body.lang = locale;
+
         this.language = locale;
 
         await this.loadLanguage(locale);
@@ -42,12 +42,14 @@ class i18nServiceInstance {
         document.body.dispatchEvent(event);
     }
 
-    get(key: string, params?: object) {
+    get(key: string, el: HTMLElement, params: object = {}) {
         const index = (obj,i) => {
-            return obj.hasOwnProperty(i) ? obj[i] : {};
+            return obj && obj.hasOwnProperty(i) ? obj[i] : {};
         };
 
-        const jsonResult = key.split('.').reduce(index, this.strings);
+        const locale = this.getLanguage(el);
+
+        const jsonResult = [el.tagName.toLowerCase(), ...key.split('.')].reduce(index, this.strings[locale]);
 
         let stringResult = Object.prototype.toString.call(jsonResult) === "[object String]" ? jsonResult : key;
 

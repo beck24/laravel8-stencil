@@ -1,26 +1,23 @@
-import { Component, h, Listen, State, Host } from '@stencil/core';
+import { Component, h, Listen, State, Host, Element } from '@stencil/core';
 import { i18nService } from '../../services/i18n.service';
 
 @Component({
     tag: 'language-test'
 })
 export class LanguageTest {
-    @State() languageStrings = i18nService.strings;
-    @State() locale: string = 'en';
+    @Element() el: HTMLElement;
+    @State() rerender: number = 0;
 
     @Listen('localeUpdate', { target: 'body' })
-    localeUpdated(e) {
-        this.locale = e.detail;
+    localeUpdated() {
+        this.rerender++;
     }
 
     render() {
         return (
-            <Host data-lang={this.locale}>
+            <Host data-rerender={this.rerender}>
                 <div>
-                    Language Test: { i18nService.get('language-test.hello', {noun: 'World'}) }<br /><br />
-
-                    { i18nService.get('language-test.goodbye') }
-                
+                    Language Test: { i18nService.get('hello', this.el, {noun: 'World'}) }                
                 </div>
             </Host>
         )
