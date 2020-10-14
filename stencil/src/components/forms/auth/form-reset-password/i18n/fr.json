@@ -1,0 +1,15 @@
+{
+  "title": "Réinitialiser le mot de passe",
+  "password": "Mot de passe",
+  "passwordagain": "Mot de passe à nouveau",
+  "submit": "Réinitialiser le mot de passe",
+  "errors": {
+    "invalidemail": "Adresse e-mail non valide - l'URL doit contenir une adresse e-mail valide",
+    "nopassword": "Veuillez saisir un nouveau mot de passe",
+    "passwordmatch": "Le mot de passe et la confirmation doivent correspondre",
+    "api": "Un problème est survenu lors de la connexion au serveur"
+  },
+  "messages": {
+    "success": "Le mot de passe a été mis à jour, veuillez vous connecter."
+  }
+}

@@ -24,12 +24,7 @@ export class AppHome {
 
   render() {
     return [
-      <ion-header>
-        <ion-toolbar color="primary">
-          <ion-title>Home</ion-title>
-        </ion-toolbar>
-      </ion-header>,
-
+      <app-header />,
       <ion-content class="ion-padding">
         <p>
           Welcome to the PWA Toolkit. You can use this starter to build entire apps with web components using Stencil and ionic/core! Check out the README for everything that comes

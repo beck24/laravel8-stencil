@@ -1,0 +1,15 @@
+{
+  "title": "Mot de passe oublié",
+  "email": "E-mail",
+  "reset_password": "Réinitialiser le mot de passe",
+  "login": "Connexion",
+  "errors": {
+    "noemail": "Veuillez saisir une adresse e-mail",
+    "emailinvalid": "Veuillez saisir une adresse e-mail valide",
+    "nopassword": "Veuillez saisir votre mot de passe",
+    "api": "Un problème est survenu lors de la connexion au serveur"
+  },
+  "messages": {
+    "api": "Veuillez vérifier votre e-mail et suivez le lien qui a été envoyé pour réinitialiser votre mot de passe"
+  }
+}

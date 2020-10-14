@@ -1,5 +1,6 @@
-import { Component, h, State } from '@stencil/core';
+import { Component, h, State, Element, Listen } from '@stencil/core';
 import { APIService } from '../../../../services/api.service';
+import { i18nService } from '../../../../services/i18n.service';
 import { LoadingService } from '../../../../services/loading.service';
 import { RouterService } from '../../../../services/router.service';
 import { ToastService } from '../../../../services/toast.service';
@@ -9,10 +10,14 @@ import { ToastService } from '../../../../services/toast.service';
   styleUrl: 'page-email-verification.scss'
 })
 export class PageEmailVerification {
+    @Element() el: HTMLElement;
     @State() verified: string = RouterService.getQueryParam('verified');
 
-    componentWillLoad() {
-        console.log(this.verified);
+    @State() rerender: number = 0;
+
+    @Listen('localeUpdate', { target: 'body' })
+    localeUpdated() {
+        this.rerender++;
     }
 
     async sendEmail() {
@@ -37,29 +42,27 @@ export class PageEmailVerification {
   render() {
     return [
       <app-header />,
-      <ion-content class="page-email-verification">
+      <ion-content class="page-email-verification" data-rerender={this.rerender}>
         <section class="section">
           {
               this.verified ?
                 <div>
-                    <h1>Email Verified</h1>
+                    <h1>{ i18nService.get('verified.title', this.el) }</h1>
             
                     <p>
-                        Your email has been successfully verified, thank you.
+                        { i18nService.get('verified.message', this.el) }
                     </p>
                 </div>
               :
                 <div>
-                    <h1>Please verify your email.</h1>
+                    <h1>{ i18nService.get('unverified.title', this.el) }</h1>
             
                     <p>
-                        An email was sent to you that contained a link.  Please click that link to confirm your email.
-
-                        Didn't get the email?  Click below to send another
+                      { i18nService.get('unverified.title', this.el) }
                     </p>
 
                     <button class="pure-button pure-button-primary" onClick={ () => { this.sendEmail() }}>
-                        Send Verification Email
+                      { i18nService.get('submit', this.el) }
                     </button>
                 </div>
           }

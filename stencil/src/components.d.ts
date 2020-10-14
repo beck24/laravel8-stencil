@@ -30,8 +30,6 @@ export namespace Components {
          */
         "token": string;
     }
-    interface LanguageTest {
-    }
     interface Page404 {
     }
     interface PageEmailVerification {
@@ -98,12 +96,6 @@ declare global {
         prototype: HTMLFormResetPasswordElement;
         new (): HTMLFormResetPasswordElement;
     };
-    interface HTMLLanguageTestElement extends Components.LanguageTest, HTMLStencilElement {
-    }
-    var HTMLLanguageTestElement: {
-        prototype: HTMLLanguageTestElement;
-        new (): HTMLLanguageTestElement;
-    };
     interface HTMLPage404Element extends Components.Page404, HTMLStencilElement {
     }
     var HTMLPage404Element: {
@@ -149,7 +141,6 @@ declare global {
         "form-login": HTMLFormLoginElement;
         "form-register": HTMLFormRegisterElement;
         "form-reset-password": HTMLFormResetPasswordElement;
-        "language-test": HTMLLanguageTestElement;
         "page-404": HTMLPage404Element;
         "page-email-verification": HTMLPageEmailVerificationElement;
         "page-forgot-password": HTMLPageForgotPasswordElement;
@@ -183,8 +174,6 @@ declare namespace LocalJSX {
          */
         "token": string;
     }
-    interface LanguageTest {
-    }
     interface Page404 {
     }
     interface PageEmailVerification {
@@ -210,7 +199,6 @@ declare namespace LocalJSX {
         "form-login": FormLogin;
         "form-register": FormRegister;
         "form-reset-password": FormResetPassword;
-        "language-test": LanguageTest;
         "page-404": Page404;
         "page-email-verification": PageEmailVerification;
         "page-forgot-password": PageForgotPassword;
@@ -231,7 +219,6 @@ declare module "@stencil/core" {
             "form-login": LocalJSX.FormLogin & JSXBase.HTMLAttributes<HTMLFormLoginElement>;
             "form-register": LocalJSX.FormRegister & JSXBase.HTMLAttributes<HTMLFormRegisterElement>;
             "form-reset-password": LocalJSX.FormResetPassword & JSXBase.HTMLAttributes<HTMLFormResetPasswordElement>;
-            "language-test": LocalJSX.LanguageTest & JSXBase.HTMLAttributes<HTMLLanguageTestElement>;
             "page-404": LocalJSX.Page404 & JSXBase.HTMLAttributes<HTMLPage404Element>;
             "page-email-verification": LocalJSX.PageEmailVerification & JSXBase.HTMLAttributes<HTMLPageEmailVerificationElement>;
             "page-forgot-password": LocalJSX.PageForgotPassword & JSXBase.HTMLAttributes<HTMLPageForgotPasswordElement>;

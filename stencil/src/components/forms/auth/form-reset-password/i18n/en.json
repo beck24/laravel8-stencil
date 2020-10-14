@@ -1,0 +1,15 @@
+{
+    "title": "Password Reset",
+    "password": "Password",
+    "passwordagain": "Password again",
+    "submit": "Reset Password",
+    "errors": {
+        "invalidemail": "Invalid email address - the url should contain a valid email address",
+        "nopassword": "Please enter a new password",
+        "passwordmatch": "Password and confirmation should match",
+        "api": "There was an issue contacting the server"
+    },
+    "messages": {
+        "success": "Password has been updated, please log in."
+    }
+}

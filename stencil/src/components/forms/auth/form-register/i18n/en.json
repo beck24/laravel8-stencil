@@ -1,0 +1,17 @@
+{
+    "title": "Register",
+    "name": "Name",
+    "email": "Email",
+    "password": "Password",
+    "passwordagain": "Password again",
+    "register": "Register",
+    "alreadymember": "Already a member?",
+    "login": "Log In",
+    "errors": {
+        "name": "Please enter your name",
+        "emailinvalid": "Invalid email address",
+        "nopassword": "Please enter a password",
+        "passwordmatch": "Password and confirmation should match",
+        "api": "Could not create your account, please try again"
+    }
+}

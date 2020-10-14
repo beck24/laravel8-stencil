@@ -1,21 +1,29 @@
-import { Component, h, State } from '@stencil/core';
+import { Component, h, State, Listen, Host, Element } from '@stencil/core';
 import Isemail from 'isemail';
 import serialize from 'form-serialize';
 import { ToastService } from '../../../../services/toast.service';
 import { APIService } from '../../../../services/api.service';
 import { RouterService } from '../../../../services/router.service';
 import { LoadingService } from '../../../../services/loading.service';
+import { i18nService } from '../../../../services/i18n.service';
 
 @Component({
     tag: 'form-register',
     styleUrl: 'form-register.scss'
 })
 export class FormRegister {
+    @Element() el: HTMLElement;
     @State() errors: string[] = [];
     @State() errorMessages: string[] = [];
+    @State() rerender;
 
     form: HTMLFormElement;
     isDirty: boolean = false;
+
+    @Listen('localeUpdate', { target: 'body' })
+    localeUpdated() {
+        this.rerender++;
+    }
 
     validateDirtyInputs() {
         if (!this.isDirty) {
@@ -31,28 +39,28 @@ export class FormRegister {
         let results = serialize(this.form, { hash: true, empty: true });
 
         if (!results.name) {
-            errorMessages.push('Please enter your name');
+            errorMessages.push(i18nService.get('errors.name', this.el));
             errors.push('name');
         }
     
         if (!results.email) {
-          errorMessages.push('Invalid email address');
-          errors.push('email');
+            errorMessages.push(i18nService.get('errors.emailinvalid', this.el));
+            errors.push('email');
         }
         else {
-          if (!Isemail.validate(results.email)) {
-            errorMessages.push('Invalid email address');
-            errors.push('email');
-          }
+            if (!Isemail.validate(results.email)) {
+                errorMessages.push(i18nService.get('errors.emailinvalid', this.el));
+                errors.push('email');
+            }
         }
 
         if (!results.password) {
-            errorMessages.push('Please enter a password');
+            errorMessages.push(i18nService.get('errors.nopassword', this.el));
             errors.push('password');
         }
         else {
             if (results.password !== results.password_confirmation) {
-                errorMessages.push('Password and confirmation should match');
+                errorMessages.push(i18nService.get('errors.passwordmatch', this.el));
                 errors.push('password_confirmation');
             }
         }
@@ -99,7 +107,7 @@ export class FormRegister {
                     this.errors = errors;
                     this.errorMessages = errorMessages;
                 } else {
-                    ToastService.error('Could not create your account, please try again');
+                    ToastService.error(i18nService.get('errors.api', this.el));
                 }
             }
         } catch (e) {
@@ -111,17 +119,17 @@ export class FormRegister {
 
     render() {
         return (
-            <div>
+            <Host data-rerender={this.rerender}>
                 <form
                     class="pure-form pure-form-aligned"
                     onSubmit={e => this.handleSubmit(e)}
                     ref={el => this.form = el as HTMLFormElement }
                 >
                     <fieldset>
-                        <h1>Register</h1>
+                        <h1>{ i18nService.get('title', this.el) }</h1>
 
                         <div class="pure-control-group">
-                            <label htmlFor="register-form-name">Name</label>
+                            <label htmlFor="register-form-name">{ i18nService.get('name', this.el) }</label>
                             <input
                                 id="register-form-name"
                                 type="text"
@@ -133,7 +141,7 @@ export class FormRegister {
                         </div>
 
                         <div class="pure-control-group">
-                            <label htmlFor="register-form-email">Email</label>
+                            <label htmlFor="register-form-email">{ i18nService.get('email', this.el) }</label>
                             <input
                                 id="register-form-email"
                                 type="email"
@@ -145,7 +153,7 @@ export class FormRegister {
                         </div>
 
                         <div class="pure-control-group">
-                            <label htmlFor="register-form-password">Password</label>
+                            <label htmlFor="register-form-password">{ i18nService.get('password', this.el) }</label>
                             <input
                                 id="register-form-password"
                                 type="password"
@@ -157,7 +165,7 @@ export class FormRegister {
                         </div>
 
                         <div class="pure-control-group">
-                            <label htmlFor="register-form-password2">Password Again</label>
+                            <label htmlFor="register-form-password2">{ i18nService.get('passwordagain', this.el) }</label>
                             <input
                                 id="register-form-password2"
                                 type="password"
@@ -180,16 +188,16 @@ export class FormRegister {
                             }
 
                             <button type="submit" class="pure-button pure-button-primary">
-                                Register
+                                { i18nService.get('register', this.el) }
                             </button>
                         </div>
 
                         <div style={{ 'padding': '2em 0 0 11em' }}>
-                            Already a member? <ion-router-link href={ RouterService.getRoute('login') }>Log in</ion-router-link>
+                            { i18nService.get('alreadymember', this.el) } <ion-router-link href={ RouterService.getRoute('login') }>{ i18nService.get('login', this.el) }</ion-router-link>
                         </div>
                     </fieldset>
                 </form>
-            </div>
+            </Host>
         )
     }
 }

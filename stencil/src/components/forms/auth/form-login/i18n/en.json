@@ -3,7 +3,7 @@
     "email": "Email",
     "password": "Password",
     "forgot_password": "Forgot Password?",
-    "no_account": "Don't have an account?",
+    "no_account": "Don't have an account? \\n k",
     "signup": "Sign up",
     "errors": {
         "noemail": "Please enter an email address",

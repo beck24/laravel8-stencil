@@ -1,0 +1,17 @@
+{
+  "title": "S'inscrire",
+  "name": "Nom",
+  "email": "E-mail",
+  "password": "Mot de passe",
+  "passwordagain": "Mot de passe à nouveau",
+  "register": "S'inscrire",
+  "alreadymember": "Déjà membre?",
+  "login": "Connexion",
+  "errors": {
+    "name": "Veuillez entrer votre nom",
+    "emailinvalid": "Adresse e-mail invalide",
+    "nopassword": "Veuillez entrer un mot de passe",
+    "passwordmatch": "Nom0",
+    "api": "Nom1"
+  }
+}

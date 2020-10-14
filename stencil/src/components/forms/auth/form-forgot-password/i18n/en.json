@@ -1,0 +1,15 @@
+{
+    "title": "Forgot Password",
+    "email": "Email",
+    "reset_password": "Reset Password",
+    "login": "Log In",
+    "errors": {
+        "noemail": "Please enter an email address",
+        "emailinvalid": "Please enter a valid email address",
+        "nopassword": "Please enter your password",
+        "api": "There was an issue contacting the server"
+    },
+    "messages": {
+        "api": "Please check your email and follow the link that was sent to reset your password"
+    }
+}

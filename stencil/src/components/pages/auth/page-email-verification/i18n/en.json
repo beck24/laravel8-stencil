@@ -1,0 +1,11 @@
+{
+    "submit": "Send Verification Email",
+    "verified": {
+        "title": "Email Verified",
+        "message": "Your email has been successfully verified, thank you."
+    },
+    "unverified": {
+        "title": "Please verify your email.",
+        "message": "An email was sent to you that contained a link.  Please click that link to confirm your email. \\n\\nDidn't get the email?  Click below to send another"
+    }
+}
