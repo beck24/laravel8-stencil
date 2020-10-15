@@ -113,7 +113,6 @@ class APIServiceInstance {
         } else {
             // if we have no xsrf token we should get one
             // this should pretty much only happen on the first request of the session
-            console.log('getting initial xsrf token');
             await this.get({endpoint: 'sanctum/csrf-cookie', headers: false});
 
             token = getCookie('XSRF-TOKEN');
