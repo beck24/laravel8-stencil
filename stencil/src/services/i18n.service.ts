@@ -50,18 +50,24 @@ class i18nServiceInstance {
         document.body.dispatchEvent(event);
     }
 
-    get(key: string, el: HTMLElement, params: object = {}) {
+    get(key: string, el: HTMLElement | null = null, params: object = {}) {
         const index = (obj,i) => {
             return obj && obj.hasOwnProperty(i) ? obj[i] : {};
         };
 
-        const locale = this.getLanguage(el);
+        const locale = el === null ? this.getLanguage() : this.getLanguage(el);
 
         if (!this.languagesLoaded.includes(locale)) {
             this.loadLanguage(locale);
         }
 
-        const jsonResult = [el.tagName.toLowerCase(), ...key.split('.')].reduce(index, this.strings[locale]);
+        const tagname = el === null ? 'app-root' : el.tagName.toLowerCase();
+
+        let jsonResult = [tagname, ...key.split('.')].reduce(index, this.strings[locale]);
+
+        if (Array.isArray(jsonResult)) {
+            jsonResult = jsonResult.join('<br />');
+        }
 
         let stringResult = Object.prototype.toString.call(jsonResult) === "[object String]" ? jsonResult : key;
 

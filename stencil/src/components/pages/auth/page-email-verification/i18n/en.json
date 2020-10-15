@@ -6,6 +6,16 @@
     },
     "unverified": {
         "title": "Please verify your email.",
-        "message": "An email was sent to you that contained a link.  Please click that link to confirm your email. \\n\\nDidn't get the email?  Click below to send another"
+        "message": [
+            "An email was sent to you that contained a link.  Please click that link to confirm your email.",
+            "",
+            "Didn't get the email?  Click below to send another"
+        ]
+    },
+    "messages": {
+        "success": "The email has been sent"
+    },
+    "errors": {
+        "api": "There was an issue contacting the server"
     }
 }

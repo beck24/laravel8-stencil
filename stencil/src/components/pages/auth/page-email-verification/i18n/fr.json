@@ -1,0 +1,21 @@
+{
+  "submit": "Envoyer un e-mail de vérification",
+  "verified": {
+    "title": "E-mail vérifié",
+    "message": "Votre e-mail a été vérifiée avec succès, merci."
+  },
+  "unverified": {
+    "title": "Veuillez vérifier votre e-mail.",
+    "message": [
+      "Un e-mail contenant un lien vous a été envoyé. Veuillez cliquer sur ce lien pour confirmer votre e-mail.",
+      "",
+      "Vous n'avez pas reçu l'e-mail? Cliquez ci-dessous pour en envoyer un autre"
+    ]
+  },
+  "messages": {
+    "success": "L'e-mail a été envoyé"
+  },
+  "errors": {
+    "api": "Un problème est survenu lors de la connexion au serveur"
+  }
+}

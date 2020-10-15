@@ -8,8 +8,6 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
     interface AppHeader {
     }
-    interface AppHome {
-    }
     interface AppProfile {
         /**
           * The name of the user
@@ -36,6 +34,8 @@ export namespace Components {
     }
     interface PageForgotPassword {
     }
+    interface PageHome {
+    }
     interface PageLogin {
     }
     interface PageRegister {
@@ -53,12 +53,6 @@ declare global {
     var HTMLAppHeaderElement: {
         prototype: HTMLAppHeaderElement;
         new (): HTMLAppHeaderElement;
-    };
-    interface HTMLAppHomeElement extends Components.AppHome, HTMLStencilElement {
-    }
-    var HTMLAppHomeElement: {
-        prototype: HTMLAppHomeElement;
-        new (): HTMLAppHomeElement;
     };
     interface HTMLAppProfileElement extends Components.AppProfile, HTMLStencilElement {
     }
@@ -114,6 +108,12 @@ declare global {
         prototype: HTMLPageForgotPasswordElement;
         new (): HTMLPageForgotPasswordElement;
     };
+    interface HTMLPageHomeElement extends Components.PageHome, HTMLStencilElement {
+    }
+    var HTMLPageHomeElement: {
+        prototype: HTMLPageHomeElement;
+        new (): HTMLPageHomeElement;
+    };
     interface HTMLPageLoginElement extends Components.PageLogin, HTMLStencilElement {
     }
     var HTMLPageLoginElement: {
@@ -134,7 +134,6 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "app-header": HTMLAppHeaderElement;
-        "app-home": HTMLAppHomeElement;
         "app-profile": HTMLAppProfileElement;
         "app-root": HTMLAppRootElement;
         "form-forgot-password": HTMLFormForgotPasswordElement;
@@ -144,6 +143,7 @@ declare global {
         "page-404": HTMLPage404Element;
         "page-email-verification": HTMLPageEmailVerificationElement;
         "page-forgot-password": HTMLPageForgotPasswordElement;
+        "page-home": HTMLPageHomeElement;
         "page-login": HTMLPageLoginElement;
         "page-register": HTMLPageRegisterElement;
         "page-reset-password": HTMLPageResetPasswordElement;
@@ -151,8 +151,6 @@ declare global {
 }
 declare namespace LocalJSX {
     interface AppHeader {
-    }
-    interface AppHome {
     }
     interface AppProfile {
         /**
@@ -180,6 +178,8 @@ declare namespace LocalJSX {
     }
     interface PageForgotPassword {
     }
+    interface PageHome {
+    }
     interface PageLogin {
     }
     interface PageRegister {
@@ -192,7 +192,6 @@ declare namespace LocalJSX {
     }
     interface IntrinsicElements {
         "app-header": AppHeader;
-        "app-home": AppHome;
         "app-profile": AppProfile;
         "app-root": AppRoot;
         "form-forgot-password": FormForgotPassword;
@@ -202,6 +201,7 @@ declare namespace LocalJSX {
         "page-404": Page404;
         "page-email-verification": PageEmailVerification;
         "page-forgot-password": PageForgotPassword;
+        "page-home": PageHome;
         "page-login": PageLogin;
         "page-register": PageRegister;
         "page-reset-password": PageResetPassword;
@@ -212,7 +212,6 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "app-header": LocalJSX.AppHeader & JSXBase.HTMLAttributes<HTMLAppHeaderElement>;
-            "app-home": LocalJSX.AppHome & JSXBase.HTMLAttributes<HTMLAppHomeElement>;
             "app-profile": LocalJSX.AppProfile & JSXBase.HTMLAttributes<HTMLAppProfileElement>;
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
             "form-forgot-password": LocalJSX.FormForgotPassword & JSXBase.HTMLAttributes<HTMLFormForgotPasswordElement>;
@@ -222,6 +221,7 @@ declare module "@stencil/core" {
             "page-404": LocalJSX.Page404 & JSXBase.HTMLAttributes<HTMLPage404Element>;
             "page-email-verification": LocalJSX.PageEmailVerification & JSXBase.HTMLAttributes<HTMLPageEmailVerificationElement>;
             "page-forgot-password": LocalJSX.PageForgotPassword & JSXBase.HTMLAttributes<HTMLPageForgotPasswordElement>;
+            "page-home": LocalJSX.PageHome & JSXBase.HTMLAttributes<HTMLPageHomeElement>;
             "page-login": LocalJSX.PageLogin & JSXBase.HTMLAttributes<HTMLPageLoginElement>;
             "page-register": LocalJSX.PageRegister & JSXBase.HTMLAttributes<HTMLPageRegisterElement>;
             "page-reset-password": LocalJSX.PageResetPassword & JSXBase.HTMLAttributes<HTMLPageResetPasswordElement>;

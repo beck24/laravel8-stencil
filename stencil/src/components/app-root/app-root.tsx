@@ -56,7 +56,7 @@ export class AppRoot {
                 loggedInRoutes.map(r => <ion-route-redirect from={ r } to="/login" /> )
             }
 
-            <ion-route url={ RouterService.getRoute('home') } component="app-home" />
+            <ion-route url={ RouterService.getRoute('home') } component="page-home" />
             <ion-route url="/profile/:name" component="app-profile" />
 
             {/* Auth routes */}

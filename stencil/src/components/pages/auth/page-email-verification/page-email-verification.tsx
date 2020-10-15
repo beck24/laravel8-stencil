@@ -27,10 +27,10 @@ export class PageEmailVerification {
             let response = await APIService.post({ endpoint: 'email/verification-notification' });
 
             if (response.ok) {
-                ToastService.success('The email has been sent');
+                ToastService.success(i18nService.get('messages.success', this.el));
             }
             else {
-                ToastService.error('There was an issue contacting the server');
+                ToastService.error(i18nService.get('errors.api', this.el));
             }
         } catch (e) {
             ToastService.error(e.message);
@@ -57,8 +57,7 @@ export class PageEmailVerification {
                 <div>
                     <h1>{ i18nService.get('unverified.title', this.el) }</h1>
             
-                    <p>
-                      { i18nService.get('unverified.title', this.el) }
+                    <p innerHTML={i18nService.get('unverified.message', this.el)}>
                     </p>
 
                     <button class="pure-button pure-button-primary" onClick={ () => { this.sendEmail() }}>
